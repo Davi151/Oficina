@@ -5,24 +5,24 @@
  */
 package Servlet;
 
-import Dao.PecaDao;
-import Pojo.PecaPojo;
+import Dao.FuncionarioDao;
+import Pojo.FuncionarioPojo;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *
+ * @author Davi
+ */
+public class FuncionarioServlet extends HttpServlet {
 
-public class PecaServlet extends HttpServlet {
-
-    PecaDao pecaDao = new PecaDao();
-     ArrayList listPecaPojo = null;
+    
+    FuncionarioPojo funcionarioPojo = new FuncionarioPojo();
+    FuncionarioDao funcionarioDao = new FuncionarioDao();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,17 +33,24 @@ public class PecaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
-        try {
+            throws ServletException, IOException {
+        
+            if(request.getParameter("cadastro") != null){
+                funcionarioPojo.setF_CPF(request.getParameter("cpf"));
+                funcionarioPojo.setF_NOME(request.getParameter("nome"));
+
+                funcionarioDao.cadastrar(funcionarioPojo);
+                response.sendRedirect("CadastroFuncionario.html");
+            }
             
-            listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
-            request.setAttribute("listPecaPojo", listPecaPojo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
-            requestDispatcher.forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
-        }
+            
+            
+            //request.setAttribute("listPecaPojo", listPecaPojo);
+            //RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.html");
+            //requestDispatcher.forward(request, response); 
+          
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,4 +91,5 @@ public class PecaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

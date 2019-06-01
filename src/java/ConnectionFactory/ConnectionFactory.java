@@ -19,7 +19,7 @@ public class ConnectionFactory {
     public Statement stm;
     public ResultSet rst;
     private String driver = "org.postgresql.Driver";
-    private String path = "jdbc:postgresql://localhost:5432/Oficina";
+    private String path = "jdbc:postgresql://localhost:5433/Oficina";
     private String user = "postgres";
     private String password = "123456";    
     public Connection connect;

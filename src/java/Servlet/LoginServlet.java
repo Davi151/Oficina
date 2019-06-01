@@ -5,24 +5,21 @@
  */
 package Servlet;
 
-import Dao.PecaDao;
-import Pojo.PecaPojo;
+import Dao.UsuarioDao;
+import Pojo.UsuarioPojo;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-public class PecaServlet extends HttpServlet {
-
-    PecaDao pecaDao = new PecaDao();
-     ArrayList listPecaPojo = null;
+/**
+ *
+ * @author Davi
+ */
+public class LoginServlet extends HttpServlet {
+    UsuarioDao usuarioDao = new UsuarioDao();
+    UsuarioPojo usuarioPojo = new UsuarioPojo();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,17 +30,18 @@ public class PecaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
-        try {
-            
-            listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
-            request.setAttribute("listPecaPojo", listPecaPojo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
-            requestDispatcher.forward(request, response);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
-        }
+            throws ServletException, IOException {
+           usuarioPojo.setU_LOGIN(request.getParameter("login"));
+           usuarioPojo.setU_SENHA(request.getParameter("senha"));
+           
+          boolean login = usuarioDao.login(usuarioPojo);
+        
+           if(login){
+                response.sendRedirect("home.html");
+           }else{
+                response.sendRedirect("index.html");
+           }
+          
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,4 +82,5 @@ public class PecaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

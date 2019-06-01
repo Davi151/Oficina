@@ -16,6 +16,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="css/peca.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
@@ -35,18 +36,25 @@
           <ul class="navbar-nav mr-auto">
 
             <li class="nav-item active">
-              <a class="nav-link" href="./index.html">Home</a>
+              <a class="nav-link" href="home.html">Home</a>
             </li>
 
             <li class="nav-item active">
-              <a class="nav-link" href="PecaServlet">Peças</a>                  
-          </ul>                  
+              <a class="nav-link" href="PecaServlet">Peças</a>  
+            </li>
+            
+            <li class="nav-item active">
+            <a class="nav-link" href="CadastroFuncionario.html">Cadastrar Funcionário</a> 
+            </li>
+          </ul>
+   
+                           
         </div>
       </nav>        
         
-        <h3 ALIGN="center">Tabela de Peças</h3>
+        <h3 ALIGN="center" >Tabela de Peças</h3>
         
-      <table class="table table-bordered  table-hover table-sm">
+      <table class="table table-bordered  table-hover table-sm bg-light">
     <thead>
       <tr>
         <th scope="col">Identificador</th>

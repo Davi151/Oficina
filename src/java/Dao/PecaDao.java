@@ -20,7 +20,7 @@ public class PecaDao {
     
      // Método que insere uma aposta no banco de dados.
     public void cadastrar (PecaPojo pecaPojo){
-        sql = "INSERT INTO peca(nome, preco, unidade) VALUES(?, ?, ?);";                
+        sql = "INSERT INTO peca(P_NOME, P_PRECO, P_UNIDADE) VALUES(?, ?, ?);";                
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);
@@ -29,14 +29,14 @@ public class PecaDao {
             pst.setInt(3, pecaPojo.getUnidade());            
             pst.execute();
             connect.disconect();
-            JOptionPane.showMessageDialog(null, "Aposta salva com êxito!");
+            JOptionPane.showMessageDialog(null, "Cadastro salvo com êxito!");
         } catch (SQLException ex) {            
-            JOptionPane.showMessageDialog(null, "Não foi possivel salvar a aposta: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar a peça: " + ex.getMessage());
         }                        
     }
     
     public ArrayList<PecaPojo> listar() throws SQLException{
-        sql = "SELECT * FROM peca;";            
+        sql = "SELECT * FROM Peca;";            
         ArrayList<PecaPojo> listPecaPojo = new ArrayList<>();
         connect.connection();
         int count = 0;
@@ -46,10 +46,10 @@ public class PecaDao {
                    
                while (connect.rst.next()){                
                     PecaPojo pecaPojo = new PecaPojo();
-                    pecaPojo.setPid(Integer.parseInt(connect.rst.getString("pid")));             
-                    pecaPojo.setNome(connect.rst.getString("nome"));             
-                    pecaPojo.setPreco(Double.parseDouble(connect.rst.getString("preco")));             
-                    pecaPojo.setUnidade(Integer.parseInt(connect.rst.getString("unidade")));             
+                    pecaPojo.setPid(Integer.parseInt(connect.rst.getString("P_ID")));             
+                    pecaPojo.setNome(connect.rst.getString("P_NOME"));             
+                    pecaPojo.setPreco(Double.parseDouble(connect.rst.getString("P_PRECO")));             
+                    pecaPojo.setUnidade(Integer.parseInt(connect.rst.getString("P_UNIDADE")));             
                     listPecaPojo.add(pecaPojo);                                                                                        
                 }                               
             connect.disconect();                        

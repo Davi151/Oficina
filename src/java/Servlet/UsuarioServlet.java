@@ -5,24 +5,20 @@
  */
 package Servlet;
 
-import Dao.PecaDao;
-import Pojo.PecaPojo;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *
+ * @author Davi
+ */
+public class UsuarioServlet extends HttpServlet {
 
-public class PecaServlet extends HttpServlet {
-
-    PecaDao pecaDao = new PecaDao();
-     ArrayList listPecaPojo = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,16 +29,17 @@ public class PecaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
-        try {
-            
-            listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
-            request.setAttribute("listPecaPojo", listPecaPojo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+           
+            //request.setAttribute("listPecaPojo", listPecaPojo);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
             requestDispatcher.forward(request, response);
+           
+         
             
-        } catch (SQLException ex) {
-            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
         }
     }
 
@@ -84,4 +81,5 @@ public class PecaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

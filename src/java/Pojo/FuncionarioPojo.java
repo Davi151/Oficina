@@ -10,21 +10,21 @@ package Pojo;
  * @author Davi
  */
 public class FuncionarioPojo {
-    private String F_ID;
+    private int F_ID;
     private String F_CPF;
     private String F_NOME;
 
     /**
      * @return the F_ID
      */
-    public String getF_ID() {
+    public int getF_ID() {
         return F_ID;
     }
 
     /**
      * @param F_ID the F_ID to set
      */
-    public void setF_ID(String F_ID) {
+    public void setF_ID(int F_ID) {
         this.F_ID = F_ID;
     }
 

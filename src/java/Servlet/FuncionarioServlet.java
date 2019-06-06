@@ -1,28 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servlet;
 
 import Dao.FuncionarioDao;
 import Pojo.FuncionarioPojo;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Davi
- */
+
 public class FuncionarioServlet extends HttpServlet {
-
-    
     FuncionarioPojo funcionarioPojo = new FuncionarioPojo();
     FuncionarioDao funcionarioDao = new FuncionarioDao();
+    ArrayList<FuncionarioPojo> listFuncionarioPojo = new ArrayList<>();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,26 +29,40 @@ public class FuncionarioServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         
-            if(request.getParameter("cadastro") != null){
+        HttpSession session = request.getSession();
+        String usuario = (String) session.getAttribute("usuario");
+                                
+        if(request.getParameter("id").equals("cadastro")){            
+            if(usuario == null){
+                response.sendRedirect("index.html");
+            }else{
                 funcionarioPojo.setF_CPF(request.getParameter("cpf"));
                 funcionarioPojo.setF_NOME(request.getParameter("nome"));
 
-                funcionarioDao.cadastrar(funcionarioPojo);
-                response.sendRedirect("CadastroFuncionario.html");
-            }
-            
-            
-            
-            
-            //request.setAttribute("listPecaPojo", listPecaPojo);
-            //RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.html");
-            //requestDispatcher.forward(request, response); 
-          
+                funcionarioDao.salvar(funcionarioPojo);
+                response.sendRedirect("cadastroFuncionario.jsp");
+            }                
+        }
         
+        if(request.getParameter("id").equals("listar")){
+            if(usuario == null){
+                    response.sendRedirect("index.html");
+            }else{
+                try {
+                    listFuncionarioPojo = (ArrayList<FuncionarioPojo>) funcionarioDao.listar();            
+                    request.setAttribute("listFuncionarioPojo", listFuncionarioPojo);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Funcionario.jsp");
+                    requestDispatcher.forward(request, response);                        
+                } catch (SQLException ex) {
+                Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
+                }
+            }            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +77,11 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -79,7 +95,11 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -1,24 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Servlet;
 
-import Dao.PecaDao;
-import Pojo.PecaPojo;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PecaServlet extends HttpServlet {
+/**
+ *
+ * @author Davi
+ */
+public class LogoutServlet extends HttpServlet {
 
-    PecaDao pecaDao = new PecaDao();
-     ArrayList listPecaPojo = null;
-     PecaPojo pecaPojo = new PecaPojo();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,37 +29,12 @@ public class PecaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-        HttpSession session = request.getSession();
-        String usuario = (String) session.getAttribute("usuario");
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        try {
-            
-            if(request.getParameter("id").equals("cadastro")){
-                if(usuario == null){
-                    response.sendRedirect("index.html");
-                }else{
-                    pecaPojo.setP_NOME(request.getParameter("nome"));
-                    pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
-                    pecaDao.salvar(pecaPojo);                                     
-                    response.sendRedirect("cadastroPeca.jsp");
-                }                
-            }
-            
-            if(request.getParameter("id").equals("listar")){
-                if(usuario == null){
-                    response.sendRedirect("index.html");
-                }else{
-                    listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
-                    request.setAttribute("listPecaPojo", listPecaPojo);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
-                    requestDispatcher.forward(request, response);
-                }                
-            }                        
-        } catch (SQLException ex) {
-            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
-        }
+        HttpSession session = request.getSession(true);            
+        session.invalidate();
+        response.sendRedirect("index.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,4 +75,5 @@ public class PecaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

@@ -23,3 +23,18 @@ body{
 h3 {
     color: white; 
 }
+
+.scrollable{
+    height: 310px;
+    /*overflow: scroll;*/
+}
+
+.footer-copyright{
+    color: white;    
+}
+
+.footer{
+    position: fixed;
+    bottom:0;  
+    left: 38%;
+}

@@ -15,13 +15,14 @@ public class PecaDao {
     
     // INSERT
     public void salvar(PecaPojo pecaPojo){
-        sql = "INSERT INTO Peca(P_NOME, P_PRECO, P_UNIDADE) VALUES(?, ?, ?);";                
+        sql = "INSERT INTO Peca(P_NOME, P_PRECO, P_UNIDADE, P_ESTADO) VALUES(?, ?, ?, ?);";                
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);
             pst.setString(1, pecaPojo.getP_NOME());
             pst.setDouble(2, pecaPojo.getP_PRECO());
-            pst.setInt(3, pecaPojo.getP_UNIDADE());            
+            pst.setInt(3, pecaPojo.getP_UNIDADE());
+            pst.setBoolean(4, pecaPojo.isP_ESTADO());
             pst.execute();
             connect.disconect();            
         } catch (SQLException ex) {            
@@ -31,7 +32,7 @@ public class PecaDao {
     
     // SELECT
     public ArrayList<PecaPojo> listar() throws SQLException{
-        sql = "SELECT * FROM Peca;";            
+        sql = "SELECT * FROM Peca WHERE P_ESTADO != true;";            
         ArrayList<PecaPojo> listPecaPojo = new ArrayList<>();        
         connect.connection();                
         try {

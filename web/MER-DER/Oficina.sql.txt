@@ -39,3 +39,9 @@ CREATE TABLE Auditoria(
 	CONSTRAINT Auditoria_fkey FOREIGN KEY (P_ID) REFERENCES Peca(P_ID)
 );
 
+
+
+alter table peca add column P_ESTADO boolean;
+alter table Funcionario add column F_ESTADO boolean;
+alter table Usuario add column P_ESTADO boolean;
+alter table peca add column P_VALOR_TOTAL DECIMAL;

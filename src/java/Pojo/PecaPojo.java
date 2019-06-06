@@ -5,6 +5,7 @@ public class PecaPojo {
     private String P_NOME;
     private int P_UNIDADE;
     private double P_PRECO;
+    private boolean P_ESTADO = false;
     
     public int getP_ID() {
         return P_ID;
@@ -37,4 +38,14 @@ public class PecaPojo {
     public void setP_PRECO(double P_PRECO) {
         this.P_PRECO = P_PRECO;
     }   
+    
+    public boolean isP_ESTADO() {
+        return P_ESTADO;
+    }
+    
+    public void setP_ESTADO(boolean P_ESTADO) {
+        this.P_ESTADO = P_ESTADO;
+    }
+
 }
+

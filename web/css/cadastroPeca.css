@@ -49,9 +49,7 @@ body{
 .campo1{
     float: left; 
 }
-.campo2{
-     
-}
+
 .box input[type = "submit"]{
   border:0;
   background: none;
@@ -143,12 +141,14 @@ label {
     color: white
 }
 
-input.campo1{
+.campo1{
       margin-right: 160px;
+      
 }
 
 #cancel.campo2{
-    margin-left: 60px;
+    margin-left: 0px;
+    float: right;
 }
 
 label {

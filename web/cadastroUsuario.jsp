@@ -96,9 +96,9 @@
         <h1 ALIGN="center">Cadastro de Usuário</h1>
         <div class="table-sm box" ALIGN="center">
             
-        <div row>
+        <div class="row" >
             <div class="col-2">
-                <div class="dropdown">
+                <div class="dropdown" ALIGN="right">
                     <button type="button" class="btn dropdown-toggle btn-primary" data-toggle="dropdown"> 
                        Funcionários
                        <span class="caret"></span>
@@ -123,11 +123,11 @@
                         
          </div>
             <form class="form-group" action="UsuarioServlet?id=cadastro" method="post">			    	
-                <label> Login: <input type="text" id="login" name="login" placeholder="Login" required oninvalid="this.setCustomValidity('Informe o Nome do Funcionário!')" 
+                <label> Login: <input type="text" id="login" name="login" placeholder="Login" required oninvalid="this.setCustomValidity('Informe um nome de Usuário!')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
-                <label>Senha: <input type="password" id="senha" name="senha" placeholder="Senha" required oninvalid="this.setCustomValidity('Informe o CPF do Funcionário!')" 
+                <label>Senha: <input type="password" id="senha" name="senha" placeholder="Senha" required oninvalid="this.setCustomValidity('Coloque uma Senha!')" 
                                                                                               onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                     
-                <input class="campo1" name="cadastro" type="submit" value="Cadastrar" />                                                            
+                <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            
                 <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   
            </form>   
             

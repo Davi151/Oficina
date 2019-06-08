@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Peca
-    Created on : 01/06/2019, 12:50:06
-    Author     : rande
---%>
-
 <%@page import="java.util.Iterator"%>
 <%@page import="Pojo.PecaPojo"%>
 <%@page import="java.util.ArrayList"%>
@@ -56,7 +50,9 @@
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>                
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li> 
            
@@ -109,6 +105,8 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Unidade</th>
+                    <th scope="col">Valor Total</th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
 
@@ -120,6 +118,92 @@
                       <td><%out.print(pc.getP_NOME());%></td>
                       <td><%out.print(pc.getP_PRECO());%></td>
                       <td><%out.print(pc.getP_UNIDADE());%></td>        
+                      <td><%out.print(pc.getP_VALOR_TOTAL());%></td> 
+                    <td>
+                          <style>
+                              .mesmo-tamanho{
+                                  width: 100%;                           
+                              }                                                           
+                          </style>
+                          
+                          <div class="row" ALIGN="center">
+                            <div class="col">
+                                <button type="submit" class="btn-primary mesmo-tamanho" data-toggle="modal" data-target="#myModalEditar<% out.print(pc.getP_ID()); %>">Editar</button>                                    
+                                <div class="modal fade" id="myModalEditar<%out.print(pc.getP_ID()); %>" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Editar Peça</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">×</span>
+                                                </button>
+                                              </div>
+                                            
+                                            <div class="modal-body">
+                                                <!--AQUI FICA OS CAMPOS PARA SEREEM ENVIADOS-->
+                                                <form>
+                                                     <div class="form-group col-6" ALIGN="left">
+                                                            <label for="editarNome" class="col-form-label">Nome:</label>
+                                                            <input value="<%out.print(pc.getP_NOME());%>" type="text" class="form-control" id="editarNome <% out.print(pc.getP_ID()); %>" name="editarNome">
+                                                     </div>
+                                                </form>                                            
+                                                
+                                                <form>
+                                                     <div class="form-group col-6" ALIGN="left">
+                                                            <label for="editarPreco" class="col-form-label">Preço:</label>
+                                                            <input value="<%out.print(pc.getP_PRECO());%>" type="text" class="form-control" id="editarPreco" name="editarPreco">
+                                                     </div>
+                                                </form>                                            
+                                                
+                                                <form>
+                                                     <div class="form-group col-6" ALIGN="left">
+                                                            <label for="editarUnidade" class="col-form-label">Unidade:</label>
+                                                            <input value="<%out.print(pc.getP_UNIDADE());%>" type="text" class="form-control" id="editarUnidade" name="editarUnidade">
+                                                     </div>
+                                                </form>                                                                                                                   
+                                            </div>
+                                            
+                                            <div class="modal-footer" align="center">                                                
+                                                <input type="hidden" id="editarIdentificador" value="<% out.print(pc.getP_ID()); %>" name="editarIdentificador">
+                                                <button onclick="enviarCampos()"  type="submit" class="btn btn-success" data-dismiss="">Salvar</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                                
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>                             
+                            </div>
+                              
+                           <div class="col">                               
+                               <button type="submit" class="btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(pc.getP_ID()); %>">Excluir</button>                                    
+                                
+                               <div class="modal fade" id="myModalExcluir<%out.print(pc.getP_ID()); %>" role="dialog">
+                                   <div class="modal-dialog modal-sm">
+                                       <div class="modal-content">
+                                           <div class="modal-body">
+                                               <p align="left">Deseja Realmente Excluir a Peça?</p>
+                                               <p align="left">Identificador da Peça: <% out.print(pc.getP_ID()); %>.</p>
+                                               <p align="left">Nome da Peça: <% out.print(pc.getP_NOME()); %>.</p>
+                                               <p align="left">Preço da Peça: <% out.print(pc.getP_PRECO()); %>.</p>
+                                               <p align="left">Unidade da Peça: <% out.print(pc.getP_UNIDADE()); %>.</p>
+                                               <p align="left">Valor Total da Peça: <% out.print(pc.getP_VALOR_TOTAL()); %>.</p>
+                                           </div>
+                                           
+                                           <div class="modal-footer" align="center">
+                                                <form action="PecaServlet?id=excluir" method="post">
+                                                    <input type="hidden" id="identificador" value="<% out.print(pc.getP_ID()); %>" name="identificador">
+                                                     <button type="submit" class="btn btn-success" data-dismiss="">Sim</button>
+                                                </form>  
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>                                
+                                           </div>
+                                       </div> 
+                                   </div>
+                               </div>                                                                                                        
+                            </div>                                    
+                          </div>                                                      
+                      </td>        
+                    
+                    
+                    
                     </tr>        
                   <%} %>
                 </tbody>

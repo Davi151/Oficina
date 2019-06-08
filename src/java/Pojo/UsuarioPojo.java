@@ -14,6 +14,7 @@ public class UsuarioPojo {
     private String U_SENHA;
     private Integer U_UID;
     private Integer F_FID;
+    private boolean U_ESTADO = false;
     
     /**
      * @return the U_UID
@@ -70,5 +71,19 @@ public class UsuarioPojo {
      */
     public void setU_SENHA(String U_SENHA) {
         this.U_SENHA = U_SENHA;
+    }
+
+    /**
+     * @return the U_ESTADO
+     */
+    public boolean isU_ESTADO() {
+        return U_ESTADO;
+    }
+
+    /**
+     * @param U_ESTADO the U_ESTADO to set
+     */
+    public void setU_ESTADO(boolean U_ESTADO) {
+        this.U_ESTADO = U_ESTADO;
     }
 }

@@ -45,7 +45,9 @@
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>                
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li> 
            <li>   

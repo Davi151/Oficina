@@ -5,20 +5,26 @@
  */
 package Servlet;
 
+import Dao.UsuarioDao;
+import Pojo.UsuarioPojo;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Davi
  */
 public class UsuarioServlet extends HttpServlet {
-
+    
+    UsuarioPojo usuarioPojo = new UsuarioPojo();
+    UsuarioDao usuarioDao = new UsuarioDao();
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,15 +37,38 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
-            //request.setAttribute("listPecaPojo", listPecaPojo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-            requestDispatcher.forward(request, response);
-           
-         
+            HttpSession session = request.getSession();
+            String usuario = (String) session.getAttribute("usuario");
             
+            try {
+                if (request.getParameter("id").equals("cadastro")) {
+                    if(usuario == null){
+                    response.sendRedirect("index.html");
+                } else{
+                    usuarioPojo.setU_LOGIN(request.getParameter("login"));
+                    usuarioPojo.setU_SENHA(request.getParameter("senha"));
+                    usuarioPojo.setF_FID(Integer.parseInt(request.getParameter("F_ID")));
+                
+                    usuarioDao.salvar(usuarioPojo);
+                    
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+                    requestDispatcher.forward(request, response);
+                 }
+            }
+                
+            
+                
+        } catch (IOException | ServletException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel salvar Usuário: " + e.getMessage());
+        }
+            
+            
+            
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+            requestDispatcher.forward(request, response);
+            
+         
         }
     }
 

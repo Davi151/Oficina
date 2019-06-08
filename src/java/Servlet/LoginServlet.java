@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
     UsuarioDao usuarioDao = new UsuarioDao();
     UsuarioPojo usuarioPojo = new UsuarioPojo();
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

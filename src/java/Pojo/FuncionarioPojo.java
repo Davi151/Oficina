@@ -13,6 +13,7 @@ public class FuncionarioPojo {
     private int F_ID;
     private String F_CPF;
     private String F_NOME;
+    private boolean F_ESTADO = false;
 
     /**
      * @return the F_ID
@@ -54,6 +55,20 @@ public class FuncionarioPojo {
      */
     public void setF_NOME(String F_NOME) {
         this.F_NOME = F_NOME;
+    }
+
+    /**
+     * @return the F_ESTADO
+     */
+    public boolean isF_ESTADO() {
+        return F_ESTADO;
+    }
+
+    /**
+     * @param F_ESTADO the F_ESTADO to set
+     */
+    public void setF_ESTADO(boolean F_ESTADO) {
+        this.F_ESTADO = F_ESTADO;
     }
     
 }

@@ -48,7 +48,9 @@
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>                
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li> 
            
@@ -99,7 +101,8 @@
                   <tr>
                     <th scope="col">Identificador</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>                    
+                    <th scope="col">CPF</th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
 
@@ -110,6 +113,44 @@
                      <td><%out.print(fc.getF_ID());%></td>
                       <td><%out.print(fc.getF_NOME());%></td>
                       <td><%out.print(fc.getF_CPF());%></td>                      
+                                                            
+                      <td>
+                          <style>
+                              .mesmo-tamanho{
+                                  width: 100%;                           
+                              }                                                           
+                          </style>
+                          
+                           <div class="col">                               
+                               <button type="submit" class="btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(fc.getF_ID()); %>">Excluir</button>                                    
+                                
+                               <div class="modal fade" id="myModalExcluir<%out.print(fc.getF_ID()); %>" role="dialog">
+                                   <div class="modal-dialog modal-sm">
+                                       <div class="modal-content">
+                                           <div class="modal-body">
+                                               <p align="left">Deseja Realmente Excluir este Funcionario?</p>
+                                               <p align="left">Nome Funcionario: <% out.print(fc.getF_NOME()); %>.</p>
+                                               <p align="left">Número do CPF: <% out.print(fc.getF_CPF()); %>.</p>
+                                           </div>
+                                           
+                                           <div class="modal-footer" align="center">
+                                                <form action="FuncionarioServlet?id=excluir" method="post">
+                                                    <input type="hidden" id="identificador" value="<% out.print(fc.getF_ID()); %>" name="identificador">
+                                                     <button type="submit" class="btn btn-success" data-dismiss="">Sim</button>
+                                                </form>  
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>                                
+                                           </div>
+                                       </div> 
+                                   </div>
+                               </div>                                                                                                        
+                            </div>                                    
+                          </div>                                                      
+                      </td>
+                    
+                    
+                    
+                    
+                    
                     </tr>        
                   <%} %>
                 </tbody>

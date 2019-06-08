@@ -43,7 +43,8 @@ public class PecaDao {
                     pecaPojo.setP_ID(Integer.parseInt(connect.rst.getString("P_ID")));             
                     pecaPojo.setP_NOME(connect.rst.getString("P_NOME"));             
                     pecaPojo.setP_PRECO(Double.parseDouble(connect.rst.getString("P_PRECO")));             
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(connect.rst.getString("P_UNIDADE")));             
+                    pecaPojo.setP_UNIDADE(Integer.parseInt(connect.rst.getString("P_UNIDADE")));
+                    pecaPojo.setP_VALOR_TOTAL(Double.parseDouble(connect.rst.getString("P_VALOR_TOTAL")));
                     listPecaPojo.add(pecaPojo);                                                                                        
                 }                               
             connect.disconect();                        
@@ -56,29 +57,31 @@ public class PecaDao {
     
     // DELETE
     public void excluir(PecaPojo pecaPojo){                
-        sql = "DELETE FROM Peca WHERE P_ID=?;";
+        sql = "UPDATE Peca SET P_ESTADO=? WHERE P_ID=?;";
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);            
-            pst.setInt(1, pecaPojo.getP_ID());
+            pst.setBoolean(1, true);
+            pst.setInt(2, pecaPojo.getP_ID());
             pst.execute();
             connect.disconect();         
         } catch (SQLException ex) {
             Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao excluir Peca!");
         }        
-    }   
+    }  
     
    // UPDATE
     public void editar(PecaPojo pecaPojo){        
-        sql = "UPDATE Peca SET P_NOME=?, P_PRECO=?, P_UNIDADE=? WHERE P_ID=?;";
+        sql = "UPDATE Peca SET P_NOME=?, P_PRECO=?, P_UNIDADE=?, P_VALOR_TOTAL=? WHERE P_ID=?;";
         try {
             connect.connection();                             
             PreparedStatement pst = connect.connect.prepareStatement(sql);
             pst.setString(1, pecaPojo.getP_NOME());
             pst.setDouble(2, pecaPojo.getP_PRECO());
             pst.setInt(3, pecaPojo.getP_UNIDADE());
-            pst.setInt(4, pecaPojo.getP_ID());            
+            pst.setDouble(4, pecaPojo.getP_VALOR_TOTAL());
+            pst.setInt(5, pecaPojo.getP_ID());            
             pst.execute();
             connect.disconect();                                
         } catch (SQLException ex) {

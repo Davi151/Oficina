@@ -7,11 +7,12 @@ package Dao;
 
 import ConnectionFactory.ConnectionFactory;
 import Pojo.FuncionarioPojo;
-import Pojo.PecaPojo;
 import Pojo.UsuarioPojo;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Davi
@@ -20,8 +21,8 @@ public class UsuarioDao {
     ConnectionFactory connect = new ConnectionFactory(); 
     String sql;
     UsuarioPojo usuarioPojo = new UsuarioPojo();
-    int f_id = -1;
-     
+    
+    
     public boolean login (UsuarioPojo usuarioPojo){
         //sql = "SELECT * FROM Funcionario f, Usuario u WHERE F_ID = '"+funcionarioPojo.getF_ID()+"';";
         sql = "select f.F_ID \n" +
@@ -29,7 +30,6 @@ public class UsuarioDao {
               "where u.U_LOGIN = '"+usuarioPojo.getU_LOGIN()+"' and u.U_SENHA = '"+usuarioPojo.getU_SENHA()+"' and f.F_ID = u.F_ID";
       
         connect.connection();
-        int count = 0;
         
         try {
             connect.executaSql(sql);
@@ -44,5 +44,22 @@ public class UsuarioDao {
         } 
         
         return  false;
+    }
+    
+     public void salvar (UsuarioPojo UsuarioPojo){
+        sql = "INSERT INTO Usuario(U_lOGIN, U_SENHA,F_ID, U_ESTADO) VALUES(?,?,?,?);";                
+        try {
+            connect.connection();
+            PreparedStatement pst = connect.connect.prepareStatement(sql);
+            pst.setString(1, UsuarioPojo.getU_LOGIN());
+            pst.setString(2, UsuarioPojo.getU_SENHA());
+            pst.setInt(3, UsuarioPojo.getF_FID());
+            pst.setBoolean(4, UsuarioPojo.isU_ESTADO());
+            pst.execute();
+            connect.disconect();
+  
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar: " + ex.getMessage());
+        }                        
     }
 }

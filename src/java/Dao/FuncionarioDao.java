@@ -15,12 +15,13 @@ public class FuncionarioDao {
          
     // INSERT
     public void salvar (FuncionarioPojo funcionarioPojo){
-        sql = "INSERT INTO Funcionario(F_NOME, F_CPF) VALUES(?, ?);";                
+        sql = "INSERT INTO Funcionario(F_NOME, F_CPF, F_ESTADO) VALUES(?, ?, ?);";                
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);
             pst.setString(1, funcionarioPojo.getF_NOME());
-            pst.setString(2, funcionarioPojo.getF_CPF()); 
+            pst.setString(2, funcionarioPojo.getF_CPF());
+            pst.setBoolean(3, funcionarioPojo.isF_ESTADO());
             pst.execute();
             connect.disconect();
   
@@ -31,7 +32,7 @@ public class FuncionarioDao {
     
     // SELECT
     public ArrayList<FuncionarioPojo> listar() throws SQLException{
-        sql = "SELECT * FROM Funcionario;";            
+        sql = "SELECT * FROM Funcionario WHERE F_ESTADO != true;";            
         ArrayList<FuncionarioPojo> listFuncionarioPojo = new ArrayList<>();        
         connect.connection();                
         try {
@@ -40,7 +41,7 @@ public class FuncionarioDao {
                     FuncionarioPojo funcionarioPojo = new FuncionarioPojo();
                     funcionarioPojo.setF_ID(Integer.parseInt(connect.rst.getString("F_ID")));             
                     funcionarioPojo.setF_NOME(connect.rst.getString("F_NOME"));             
-                    funcionarioPojo.setF_CPF(connect.rst.getString("F_CPF"));                                 
+                    funcionarioPojo.setF_CPF(connect.rst.getString("F_CPF"));
                     listFuncionarioPojo.add(funcionarioPojo);                                                                                        
                 }                               
             connect.disconect();                        
@@ -53,11 +54,12 @@ public class FuncionarioDao {
     
     // DELETE
     public void excluir(FuncionarioPojo funcionarioPojo){                
-        sql = "DELETE FROM Funcionario WHERE P_ID=?;";
+        sql = "UPDATE Funcionario set F_ESTADO=? WHERE F_ID=? ;";
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);            
-            pst.setInt(1, funcionarioPojo.getF_ID());
+            pst.setBoolean(1, true);
+            pst.setInt(2, funcionarioPojo.getF_ID());
             pst.execute();
             connect.disconect();         
         } catch (SQLException ex) {

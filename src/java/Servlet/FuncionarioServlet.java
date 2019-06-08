@@ -63,6 +63,18 @@ public class FuncionarioServlet extends HttpServlet {
                 }
             }            
         }
+        
+         if(request.getParameter("id").equals("excluir")){
+                if(usuario == null){
+                    response.sendRedirect("index.html");
+                }else{
+                    funcionarioPojo.setF_ID(Integer.parseInt(request.getParameter("identificador")));                    
+                    funcionarioDao.excluir(funcionarioPojo);                                     
+                    response.sendRedirect("FuncionarioServlet?id=listar");
+                }                
+            }
+             
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

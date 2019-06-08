@@ -6,6 +6,7 @@ public class PecaPojo {
     private int P_UNIDADE;
     private double P_PRECO;
     private boolean P_ESTADO = false;
+    private double P_VALOR_TOTAL;
     
     public int getP_ID() {
         return P_ID;
@@ -45,6 +46,20 @@ public class PecaPojo {
     
     public void setP_ESTADO(boolean P_ESTADO) {
         this.P_ESTADO = P_ESTADO;
+    }
+
+    /**
+     * @return the P_VALOR_TOTAL
+     */
+    public double getP_VALOR_TOTAL() {
+        return P_VALOR_TOTAL;
+    }
+
+    /**
+     * @param P_VALOR_TOTAL the P_VALOR_TOTAL to set
+     */
+    public void setP_VALOR_TOTAL(double P_VALOR_TOTAL) {
+        this.P_VALOR_TOTAL = P_VALOR_TOTAL;
     }
 
 }

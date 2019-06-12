@@ -12,6 +12,7 @@
     <body>
         <%
             String usuario = (String) session.getAttribute("usuario");
+            int uid = (int) session.getAttribute("u_id");
             if(usuario == null){
                 response.sendRedirect("index.html");
             }
@@ -49,7 +50,10 @@
                  <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
-           </li> 
+           </li>
+          <li class="nav-item active">
+                <a class="nav-link" href="auditoria.jsp">Auditoria</a>
+           </li>
            <li>   
                <div class="container">
                     <button type="submit" class="btn btn-link navbar-btn navbar-danger" data-toggle="modal" data-target="#myModal">Logout</button>
@@ -74,7 +78,7 @@
                     </div> 
                 </div> 
             </li>
-            <li>
+             <li>
                 <a class="nav-link disabled" href="#">Usuário: <% out.print(usuario);%> </a>
             </li>
         </ul>           

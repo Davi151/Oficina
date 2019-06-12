@@ -4,10 +4,22 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 01/06/2019, 23:21:04
-    Author     : rande
+    Created on : 01/06/2019, 19:46:10
+    Author     : Davi
 */
 
+.footer-copyright{
+    color: white;    
+}
+
+
+.footer{
+    position: relative;
+    bottom: 0px;  
+    left: 38%;
+    height: 310px;
+    overflow: scroll;
+}
 
 body{
   margin: 0;
@@ -17,23 +29,4 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-}
-
-h3 {   
-    color: white
-}
-
-.scrollable{
-    height: 310px;
-    overflow: scroll;
-}
-
-
-.footer-copyright{
-    color: white;    
-}
-.footer{
-    position: fixed;
-    bottom:0;
-    left: 38%;       
 }

@@ -1,10 +1,14 @@
 package Servlet;
 
+import Dao.ControlaDao;
 import Dao.PecaDao;
+import Pojo.ControlaPojo;
 import Pojo.PecaPojo;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -13,13 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 public class PecaServlet extends HttpServlet {
 
     PecaDao pecaDao = new PecaDao();
     ArrayList listPecaPojo = null;
     PecaPojo pecaPojo = new PecaPojo();
+    ControlaDao controlaDao = new ControlaDao();
+    ControlaPojo controlaPojo = new ControlaPojo();
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,22 +36,45 @@ public class PecaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
+            throws ServletException, IOException, ParseException {  
+        
         HttpSession session = request.getSession();
         String usuario = (String) session.getAttribute("usuario");
+        int u_id = (int) session.getAttribute("u_id");
         double valor_total = 0.0;
+        int p_id;        
         
-        try {
-            
+        try {            
             if(request.getParameter("id").equals("cadastro")){
                 if(usuario == null){
                     response.sendRedirect("index.html");
-                }else{
+                }else{                                        
                     pecaPojo.setP_NOME(request.getParameter("nome"));
                     pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
                     pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
-                    pecaDao.salvar(pecaPojo);                                     
+                    p_id = pecaDao.salvar(pecaPojo);                                                         
+                    
+                    if(p_id != -1){
+                        controlaPojo.setU_ID(u_id);
+                        controlaPojo.setP_ID(p_id);                                       
+                        controlaPojo.setC_ACAO("INSERT");
+                    
+                        controlaDao.salvar(controlaPojo);
+                    }
+                    
+                    
                     response.sendRedirect("cadastroPeca.jsp");
+                }                
+            }
+            
+            if(request.getParameter("id").equals("listar")){
+                if(usuario == null){
+                    response.sendRedirect("index.html");
+                }else{
+                    listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
+                    request.setAttribute("listPecaPojo", listPecaPojo);                                                          
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
+                    requestDispatcher.forward(request, response);
                 }                
             }
             
@@ -56,49 +84,46 @@ public class PecaServlet extends HttpServlet {
                 }else{
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("identificador")));                    
                     pecaDao.excluir(pecaPojo);                                     
+                    
+                    p_id = pecaPojo.getP_ID();
+                    
+                    if(p_id >= 1){
+                        controlaPojo.setU_ID(u_id);
+                        controlaPojo.setP_ID(p_id);                                       
+                        controlaPojo.setC_ACAO("DELETE");                    
+                        controlaDao.salvar(controlaPojo);
+                    }                                
+                    
                     response.sendRedirect("PecaServlet?id=listar");
-                }                
-            }
-            
-            
-            if(request.getParameter("id").equals("listar")){
-                if(usuario == null){
-                    response.sendRedirect("index.html");
-                }else{
-                    listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
-                    request.setAttribute("listPecaPojo", listPecaPojo);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Peca.jsp");
-                    requestDispatcher.forward(request, response);
                 }                
             }
             
             if(request.getParameter("id").equals("editar")){
                 if(usuario == null){
                     response.sendRedirect("index.html");
-                }else{                         
-                    //System.out.println(request.getParameter("nome"));
-                    //System.out.println(request.getParameter("preco"));
-                    //System.out.println(request.getParameter("unidade"));
+                }else{                                         
+                    System.out.println("nome da peca"+ request.getParameter("id-peca"));                    
                     
-                    JOptionPane.showMessageDialog(null, request.getParameter("identificador"));
-                    JOptionPane.showMessageDialog(null, request.getParameter("nome"));
-                    JOptionPane.showMessageDialog(null, request.getParameter("preco"));
-                    JOptionPane.showMessageDialog(null, request.getParameter("unidade"));
-                                        
-                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("identificador")));                    
-                    pecaPojo.setP_NOME(request.getParameter("nome"));
+                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("id-peca")));                    
+                    pecaPojo.setP_NOME(request.getParameter("recipient-name"));
                     pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
                     pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
                     valor_total = pecaPojo.getP_PRECO() * pecaPojo.getP_UNIDADE();
                     pecaPojo.setP_VALOR_TOTAL(valor_total);                                       
                     pecaDao.editar(pecaPojo);
                     
+                    p_id = pecaPojo.getP_ID();
+                    
+                    if(p_id >= 1){
+                        controlaPojo.setU_ID(u_id);
+                        controlaPojo.setP_ID(p_id);                                       
+                        controlaPojo.setC_ACAO("UPDATE");                    
+                        controlaDao.salvar(controlaPojo);
+                    }                                                            
                     
                     response.sendRedirect("PecaServlet?id=listar");
                 }                
             }
-            
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);                       
@@ -117,7 +142,11 @@ public class PecaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -131,16 +160,20 @@ public class PecaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(PecaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
-     * Returns a short description of the servlet.
+     * Returns a short deion of the servlet.
      *
-     * @return a String containing servlet description
+     * @return a String containing servlet deion
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Short deion";
     }// </editor-fold>
 }

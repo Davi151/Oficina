@@ -3,7 +3,9 @@ package Dao;
 import ConnectionFactory.ConnectionFactory;
 import Pojo.PecaPojo;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,21 +15,29 @@ public class PecaDao {
     ConnectionFactory connect = new ConnectionFactory();
     String sql = "";
     
-    // INSERT
-    public void salvar(PecaPojo pecaPojo){
+      // INSERT
+    public int salvar(PecaPojo pecaPojo){
         sql = "INSERT INTO Peca(P_NOME, P_PRECO, P_UNIDADE, P_ESTADO) VALUES(?, ?, ?, ?);";                
         try {
             connect.connection();
-            PreparedStatement pst = connect.connect.prepareStatement(sql);
+                        
+            PreparedStatement pst = connect.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, pecaPojo.getP_NOME());
             pst.setDouble(2, pecaPojo.getP_PRECO());
             pst.setInt(3, pecaPojo.getP_UNIDADE());
-            pst.setBoolean(4, pecaPojo.isP_ESTADO());
+            pst.setBoolean(4, pecaPojo.isP_ESTADO());            
             pst.execute();
+            
+            final ResultSet rst = pst.getGeneratedKeys();
+            if(rst.next()){
+                return rst.getInt("P_ID");
+            }
             connect.disconect();            
         } catch (SQLException ex) {            
-            JOptionPane.showMessageDialog(null, "Não foi possivel salvar a Peca: " + ex.getMessage());
-        }                        
+            JOptionPane.showMessageDialog(null, "Não foi possivel salvar a Peca: " + ex.getMessage());         
+        }                   
+                
+        return -1;
     }
     
     // SELECT

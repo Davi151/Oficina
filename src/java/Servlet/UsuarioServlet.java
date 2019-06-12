@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlet;
 
 import Dao.UsuarioDao;
@@ -15,13 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author Davi
+ * @author rande
  */
 public class UsuarioServlet extends HttpServlet {
-    
     UsuarioPojo usuarioPojo = new UsuarioPojo();
     UsuarioDao usuarioDao = new UsuarioDao();
     
@@ -35,9 +28,7 @@ public class UsuarioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-            /* TODO output your page here. You may use following sample code. */
+            throws ServletException, IOException {                  
             HttpSession session = request.getSession();
             String usuario = (String) session.getAttribute("usuario");
             
@@ -48,28 +39,18 @@ public class UsuarioServlet extends HttpServlet {
                 } else{
                     usuarioPojo.setU_LOGIN(request.getParameter("login"));
                     usuarioPojo.setU_SENHA(request.getParameter("senha"));
-                    usuarioPojo.setF_FID(Integer.parseInt(request.getParameter("F_ID")));
+                    usuarioPojo.setF_FID(Integer.parseInt(request.getParameter("funcionarios")));
                 
                     usuarioDao.salvar(usuarioPojo);
                     
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
                     requestDispatcher.forward(request, response);
                  }
-            }
-                
-            
-                
+            }                                            
         } catch (IOException | ServletException e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel salvar Usuário: " + e.getMessage());
         }
             
-            
-            
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-            requestDispatcher.forward(request, response);
-            
-         
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,13 +83,13 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     /**
-     * Returns a short description of the servlet.
+     * Returns a short deion of the servlet.
      *
-     * @return a String containing servlet description
+     * @return a String containing servlet deion
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Short deion";
     }// </editor-fold>
 
 }

@@ -1,3 +1,4 @@
+
 <%@page import="java.util.Iterator"%>
 <%@page import="Pojo.PecaPojo"%>
 <%@page import="java.util.ArrayList"%>
@@ -50,11 +51,15 @@
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>  
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li> 
+                                   
+            <li class="nav-item active">
+                <a class="nav-link" href="auditoria.jsp">Auditoria</a>
+              </li>
            
              <li>   
                <div class="container">
@@ -80,7 +85,7 @@
                     </div> 
                 </div> 
             </li>
-  
+            
              <li>
                 <a class="nav-link disabled" href="#">Usuário: <% out.print(usuario);%> </a>
             </li>
@@ -98,7 +103,7 @@
             }else{                 
             %>
             
-            <table class="table table-bordered table-hover table-sm bg-light text-center table-striepd">
+            <table class="table table-bordered table-hover scrollable table-sm bg-light text-center table-striepd">
                 <thead>
                   <tr>
                     <th scope="col">Identificador</th>
@@ -118,63 +123,25 @@
                       <td><%out.print(pc.getP_NOME());%></td>
                       <td><%out.print(pc.getP_PRECO());%></td>
                       <td><%out.print(pc.getP_UNIDADE());%></td>        
-                      <td><%out.print(pc.getP_VALOR_TOTAL());%></td> 
-                    <td>
+                      <td><%out.print(pc.getP_VALOR_TOTAL());%></td>        
+                      <td>
                           <style>
                               .mesmo-tamanho{
                                   width: 100%;                           
                               }                                                           
                           </style>
-                          
-                          <div class="row" ALIGN="center">
-                            <div class="col">
-                                <button type="submit" class="btn-primary mesmo-tamanho" data-toggle="modal" data-target="#myModalEditar<% out.print(pc.getP_ID()); %>">Editar</button>                                    
-                                <div class="modal fade" id="myModalEditar<%out.print(pc.getP_ID()); %>" role="dialog">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Editar Peça</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">×</span>
-                                                </button>
-                                              </div>
-                                            
-                                            <div class="modal-body">
-                                                <!--AQUI FICA OS CAMPOS PARA SEREEM ENVIADOS-->
-                                                <form>
-                                                     <div class="form-group col-6" ALIGN="left">
-                                                            <label for="editarNome" class="col-form-label">Nome:</label>
-                                                            <input value="<%out.print(pc.getP_NOME());%>" type="text" class="form-control" id="editarNome <% out.print(pc.getP_ID()); %>" name="editarNome">
-                                                     </div>
-                                                </form>                                            
-                                                
-                                                <form>
-                                                     <div class="form-group col-6" ALIGN="left">
-                                                            <label for="editarPreco" class="col-form-label">Preço:</label>
-                                                            <input value="<%out.print(pc.getP_PRECO());%>" type="text" class="form-control" id="editarPreco" name="editarPreco">
-                                                     </div>
-                                                </form>                                            
-                                                
-                                                <form>
-                                                     <div class="form-group col-6" ALIGN="left">
-                                                            <label for="editarUnidade" class="col-form-label">Unidade:</label>
-                                                            <input value="<%out.print(pc.getP_UNIDADE());%>" type="text" class="form-control" id="editarUnidade" name="editarUnidade">
-                                                     </div>
-                                                </form>                                                                                                                   
-                                            </div>
-                                            
-                                            <div class="modal-footer" align="center">                                                
-                                                <input type="hidden" id="editarIdentificador" value="<% out.print(pc.getP_ID()); %>" name="editarIdentificador">
-                                                <button onclick="enviarCampos()"  type="submit" class="btn btn-success" data-dismiss="">Salvar</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                                
-                                           </div>
-                                        </div>
-                                    </div>
-                                </div>                             
-                            </div>
+                          <!--Botão editar-->
+                          <div class="row" ALIGN="center">                          
                               
+                            <div class="col">
+                              <button type="button" class="btn btn-xs btn-primary mesmo-tamanho" data-toggle="modal" data-target="#exampleModal" data-whatever="<% out.print(pc.getP_ID()); %>" data-whatevernome="<% out.print(pc.getP_NOME()); %>" data-whateverpreco="<% out.print(pc.getP_PRECO()); %>" data-whateverunidade="<% out.print(pc.getP_UNIDADE()); %>">
+                                Editar
+                              </button>
+                            </div>
+                          <!--Botão editar-->    
+                          
                            <div class="col">                               
-                               <button type="submit" class="btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(pc.getP_ID()); %>">Excluir</button>                                    
+                               <button type="submit" class="btn btn-xs btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(pc.getP_ID()); %>">Excluir</button>                                    
                                 
                                <div class="modal fade" id="myModalExcluir<%out.print(pc.getP_ID()); %>" role="dialog">
                                    <div class="modal-dialog modal-sm">
@@ -198,24 +165,59 @@
                                        </div> 
                                    </div>
                                </div>                                                                                                        
-                            </div>                                    
-                          </div>                                                      
+                            </div>                                                              
+                          </div>
                       </td>        
-                    
-                    
-                    
-                    </tr>        
-                  <%} %>
+                    </tr>                                           
+                  <%} %>                                     
                 </tbody>
           </table>
           <% } %>
         </div>
     </div>
             
+    <!--MODAL TEMPLATE-->
+    <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              
+              <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Editar Peça</h4>
+              </div>
+                
+              <div class="modal-body">                      
+                  <form method="get" action="">
+                      
+                  <div class="form-group">
+                            <label for="recipient-name" class="control-label">Nome:</label>
+                            <input name="recipient-name" type="text" class="form-control" id="recipient-name">
+                      </div>
+                        
+                      <div class="form-group">
+                            <label for="preco" class="control-label">Preco:</label>
+                            <input name="preco" class="form-control" id="preco">
+                      </div>
+                        
+                      <div class="form-group">
+                            <label for="unidade" class="control-label">Unidade:</label>
+                            <input name="unidade" class="form-control" id="unidade">
+                      </div>
+                    
+                    <input name="id" type="hidden" class="form-control" id="idnf" value="editar">
+                    <input name="id-peca" type="hidden" class="form-control" id="id-peca" value="">
+                                                          
+                     <button class="btn btn-success">Salvar</button>                     
+                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                                        
+                    </form>
+              </div>
+
+            </div>
+      </div>
+    </div>               
        
     <!-- Footer -->
     <footer class="page-footer font-small blue">
-
       <!-- Copyright -->
         <div class="footer-copyright footer py-3">
         © 2019 Copyright:
@@ -225,16 +227,37 @@
 
     </footer>
     <!-- Footer -->
-     
+        
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="./jquery/jquery-3.4.1.min.js"></script>
-    <script src="./jquery/jquery.freezeheader.js"></script>
+    <!--script src="./jquery/jquery-3.4.1.min.js"></script-->
+    <script src="./jquery/jquery.freezeheader.js"></script>   
+    <script src="./javascript/peca.js"></script>
     <script>
-        $(document).ready(function () {
+        /*$(document).ready(function () {
             $("table").freezeHeader({ 'height': '300px' });
         });
+         */
     </script>
+    <script>
+       	$('#exampleModal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var recipient = button.data('whatever') // Extract info from data-* attributes
+		  var recipientnome = button.data('whatevernome')
+		  var recipientpreco = button.data('whateverpreco')
+                  var recipientunidade = button.data('whateverunidade')
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  var modal = $(this)
+		  
+                  //modal.find('.modal-title').text('ID ' + recipient)
+		  modal.find('#id-peca').val(recipient)
+		  modal.find('#recipient-name').val(recipientnome)
+		  modal.find('#preco').val(recipientpreco)
+                  modal.find('#unidade').val(recipientunidade)		 
+		})
+    </script>
+    
     </body>
 </html>

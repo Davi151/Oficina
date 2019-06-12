@@ -22,26 +22,31 @@ create table Peca(
 	CONSTRAINT Peca_pkey PRIMARY KEY (P_ID)
 );
 
-create table Controla (
-	U_ID SERIAL NOT NULL,
-	P_ID INTEGER NOT NULL,
-	CONSTRAINT Controla_pkey PRIMARY KEY (U_ID, P_ID),
-	CONSTRAINT Controla_fkey FOREIGN KEY (U_ID) REFERENCES Usuario(U_ID),
-	CONSTRAINT Controla_fkey2 FOREIGN KEY (P_ID) REFERENCES Peca(P_ID)
+create table controla(
+	u_id integer not null,
+	p_id integer not null,
+	c_data date,
+	c_hora time,
+	c_acao varchar(10),
+
+	constraint controla_pkey primary key (u_id, p_id, c_data, c_hora),
+	constraint controla_fkey foreign key (u_id) references Usuario(u_id)
+	
 );
 
-CREATE TABLE Auditoria(
-	A_ID INTEGER NOT NULL,
-	P_ID INTEGER NOT NULL,
-	A_DATA DATE,
-	A_HORA DATE,
-	CONSTRAINT Auditoria_pkey PRIMARY KEY (A_ID),
-	CONSTRAINT Auditoria_fkey FOREIGN KEY (P_ID) REFERENCES Peca(P_ID)
+create table Auditoria(
+	a_id serial not null,
+	p_id integer,
+	a_descricao varchar(10000),
+
+	constraint auditoria_pkey primary key (a_id),
+	constraint auditoria_fkey foreign key (p_id) references peca(p_id)
+	
 );
-
-
 
 alter table peca add column P_ESTADO boolean;
 alter table Funcionario add column F_ESTADO boolean;
 alter table Usuario add column P_ESTADO boolean;
 alter table peca add column P_VALOR_TOTAL DECIMAL;
+
+

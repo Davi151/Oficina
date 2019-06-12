@@ -20,6 +20,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>Servlet.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuditoriaServlet</servlet-name>
+        <servlet-class>Servlet.AuditoriaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuditoriaServlet</servlet-name>
+        <url-pattern>/AuditoriaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

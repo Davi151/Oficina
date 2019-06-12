@@ -33,19 +33,25 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           usuarioPojo.setU_LOGIN(request.getParameter("login"));
-           usuarioPojo.setU_SENHA(request.getParameter("senha"));
-           
-          boolean login = usuarioDao.login(usuarioPojo);
         
-        if(login){            
+        int u_id;
+        
+        usuarioPojo.setU_LOGIN(request.getParameter("login"));
+        usuarioPojo.setU_SENHA(request.getParameter("senha"));
+           
+        boolean login = usuarioDao.login(usuarioPojo);
+        
+        if(login){ 
+            u_id = usuarioDao.getU_ID(usuarioPojo);            
             HttpSession session = request.getSession(true);            
-            session.setAttribute("usuario", usuarioPojo.getU_LOGIN());                                  
+            
+            session.setAttribute("usuario", usuarioPojo.getU_LOGIN());
+            session.setAttribute("u_id", u_id);                                  
+            
             response.sendRedirect("home.jsp");
         }else{
              response.sendRedirect("index.html");
         }
-           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

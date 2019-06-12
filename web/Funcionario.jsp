@@ -1,8 +1,7 @@
 <%-- 
-    Document   : Funcionario
-    Created on : 06/06/2019, 12:29:32
-    Author     : Davi
+   
 --%>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="Pojo.FuncionarioPojo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +11,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="css/peca.css" rel="stylesheet" type="text/css">
+        <link href="css/funcionario.css" rel="stylesheet" type="text/css">
         <title>Tabela Funcionário</title>
     </head>
     <body>            
@@ -48,11 +47,15 @@
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>   
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li> 
+           
+           <li class="nav-item active">
+                <a class="nav-link " href="auditoria.jsp">Auditoria</a>
+              </li>
            
              <li>   
                <div class="container">
@@ -77,7 +80,7 @@
                         </div>
                     </div> 
                 </div> 
-            </li>
+            </li>                        
   
             <li>                                    
                 <a class="nav-link disabled" href="#">Usuário: <% out.print(usuario);%> </a>
@@ -95,14 +98,14 @@
                 response.sendRedirect("index.html");
             }else{                                                              
             %>
-            <table class="table table-bordered table-hover table-sm bg-light text-center table-striepd">
+            <table class="table table-bordered scrollable table-hover table-sm bg-light text-center table-striepd">
                 <thead>
                     
                   <tr>
                     <th scope="col">Identificador</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col">CPF</th>  
+                    <th scope="col">Ações</th>  
                   </tr>
                 </thead>
 
@@ -112,45 +115,50 @@
                      <% FuncionarioPojo fc = listFuncionarioPojo.get(i); %>
                      <td><%out.print(fc.getF_ID());%></td>
                       <td><%out.print(fc.getF_NOME());%></td>
-                      <td><%out.print(fc.getF_CPF());%></td>                      
-                                                            
+                      <td><%out.print(fc.getF_CPF());%></td>     
                       <td>
                           <style>
                               .mesmo-tamanho{
                                   width: 100%;                           
                               }                                                           
                           </style>
+                          <!--Botão editar-->
+                          <div class="row" ALIGN="center">                          
+                              
+                            <div class="col">
+                              <button type="button" class="btn btn-xs btn-primary mesmo-tamanho" data-toggle="modal" data-target="#exampleModal" data-whatever="<% out.print(fc.getF_ID()); %>" data-whatevernome="<% out.print(fc.getF_NOME()); %>" data-whatevercpf="<% out.print(fc.getF_CPF()); %>">
+                                Editar
+                              </button>
+                            </div>
+                          <!--Botão editar-->    
                           
                            <div class="col">                               
-                               <button type="submit" class="btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(fc.getF_ID()); %>">Excluir</button>                                    
+                               <button type="submit" class="btn btn-xs btn-danger mesmo-tamanho" data-toggle="modal" data-target="#myModalExcluir<% out.print(fc.getF_ID()); %>">Excluir</button>                                    
                                 
                                <div class="modal fade" id="myModalExcluir<%out.print(fc.getF_ID()); %>" role="dialog">
                                    <div class="modal-dialog modal-sm">
                                        <div class="modal-content">
                                            <div class="modal-body">
-                                               <p align="left">Deseja Realmente Excluir este Funcionario?</p>
-                                               <p align="left">Nome Funcionario: <% out.print(fc.getF_NOME()); %>.</p>
-                                               <p align="left">Número do CPF: <% out.print(fc.getF_CPF()); %>.</p>
+                                               <p align="left">Deseja Realmente Excluir o Funcionário?</p>
+                                               <p align="left">Identificador do Funcionário: <% out.print(fc.getF_ID()); %>.</p>
+                                               <p align="left">CPF do Funcionário: <% out.print(fc.getF_CPF()); %>.</p>                                               
                                            </div>
                                            
                                            <div class="modal-footer" align="center">
                                                 <form action="FuncionarioServlet?id=excluir" method="post">
                                                     <input type="hidden" id="identificador" value="<% out.print(fc.getF_ID()); %>" name="identificador">
-                                                     <button type="submit" class="btn btn-success" data-dismiss="">Sim</button>
+                                                     <button type="submit" class="btn btn-success" >Sim</button>
                                                 </form>  
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>                                
                                            </div>
                                        </div> 
                                    </div>
                                </div>                                                                                                        
-                            </div>                                    
-                          </div>                                                      
-                      </td>
-                    
-                    
-                    
-                    
-                    
+                            </div> 
+                                                     
+                          </div>
+                      </td>        
+                      
                     </tr>        
                   <%} %>
                 </tbody>
@@ -159,7 +167,43 @@
         </div>
     </div>
       
-       
+    
+    <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              
+              <div class="modal-header">                    
+                    <h4 class="modal-title" id="exampleModalLabel">Editar Funcionário</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              </div>
+                
+              <div class="modal-body">                      
+                  <form method="get" action="">
+                      
+                  <div class="form-group">
+                            <label for="recipient-name" class="control-label">Nome:</label>
+                            <input name="recipient-name" type="text" class="form-control" id="recipient-name">
+                      </div>
+                        
+                      <div class="form-group">
+                            <label for="cpf" class="control-label">CPF:</label>
+                            <input name="cpf" class="form-control" id="cpf">
+                      </div>                                              
+                    
+                    <input name="id" type="hidden" class="form-control" id="idnf" value="editar">
+                    <input name="id-funcionario" type="hidden" class="form-control" id="id-funcionario">
+                                                          
+                     <button class="btn btn-success">Salvar</button>                     
+                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                                        
+                    </form>
+              </div>
+
+            </div>
+      </div>
+    </div>               
+    
+        
+        
     <!-- Footer -->
     <footer class="page-footer font-small blue">
 
@@ -172,15 +216,30 @@
 
     </footer>
     <!-- Footer -->
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="./jquery/jquery-3.4.1.min.js"></script>
+    <!-- src="./jquery/jquery-3.4.1.min.js"></-->
     <script src="./jquery/jquery.freezeheader.js"></script>
     <script>
-        $(document).ready(function () {
-            $("table").freezeHeader({ 'height': '300px' });
-        });
+       	$('#exampleModal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var recipient = button.data('whatever') // Extract info from data-* attributes
+		  var recipientnome = button.data('whatevernome')
+		  var recipientcpf = button.data('whatevercpf')
+                  
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  var modal = $(this)
+		  
+                  //modal.find('.modal-title').text('ID ' + recipient)
+		  modal.find('#id-funcionario').val(recipient)
+		  modal.find('#recipient-name').val(recipientnome)
+		  modal.find('#cpf').val(recipientcpf)
+                  
+		})
+
     </script>
     </body>
 </html>

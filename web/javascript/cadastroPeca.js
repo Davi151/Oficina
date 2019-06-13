@@ -10,6 +10,34 @@ function limparCampos(){
     document.getElementById('unidade').value='';
 }
 
+function valida() {  
+  if( (document.getElementById('nome').value !== "") &&
+      (document.getElementById('preco').value !== "") &&
+      (document.getElementById('unidade').value !== "")) {
+    {
+        swal({ 
+          title: "Peça cadastrada com êxito!!",
+          text: "Cadastro efetuado com sucesso!",
+          icon: "success",          
+          closeModal: true,          
+          buttons: false,
+          timer: 30000
+      });
+      return true;
+  
+  } 
+  
+    }else {
+    swal({
+            title: "Erro ao cadastrar Peça!",
+            text: "Erro no Cadastro",
+            icon: "error",
+            buttons: false,
+            timer: 9000
+        });                    
+        return false;            
+  }
+  }
 
 
 

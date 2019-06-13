@@ -10,3 +10,27 @@ function limparCampos(){
     document.getElementById('cpf').value='';
 }
 
+function valida() {  
+  if( (document.getElementById('nome').value !== "") &&
+      (document.getElementById('cpf').value !== "") ) {
+        swal({ 
+          title: "Funcionário cadastrado com êxito!!",
+          text: "Cadastro efetuado com sucesso!",
+          icon: "success",          
+          closeModal: true,          
+          buttons: false,
+          timer: 30000
+      });
+      return true;
+  
+  } else {          
+    swal({
+            title: "Erro ao cadastrar Funcionário!",
+            text: "Erro no Cadastro",
+            icon: "error",
+            buttons: false,
+            timer: 9000
+        });                    
+        return false;            
+  }
+}

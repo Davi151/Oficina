@@ -9,7 +9,11 @@ and open the template in the editor.
 */
 
 .footer-copyright{
-    color: white;    
+     position: relative;
+    bottom: 0px; 
+    color: white; 
+     margin-left: 550px;
+    margin-top: 250px;
 }
 
 

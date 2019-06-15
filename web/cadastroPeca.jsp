@@ -94,7 +94,7 @@
     </nav>          
         <h1 ALIGN="center">Cadastro de Peça</h1>
         <div class="table-sm box" ALIGN="center">
-            <form class="form-group" action="PecaServlet?id=cadastro" method="post" onsubmit="return valida()">			    	
+            <form class="form-group" action="PecaServlet?id=cadastro" method="post">			    	
                 <label>Nome: <input type="text" id="nome" name="nome" placeholder="Nome" required oninvalid="this.setCustomValidity('Informe o Nome da Peça!')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <label>Preço: <input type="text" id="preco" name="preco" placeholder="Preço" required oninvalid="this.setCustomValidity('Informe o Preço da Peça!')" 

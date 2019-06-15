@@ -1,13 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  Davi
- * Created: 12/06/2019
- */
-
 create function insert_or_update_controla_auditoria_peca() returns trigger as $$
 
 declare
@@ -68,6 +58,38 @@ begin
 						       
 	       insert into Auditoria(P_ID, A_DESCRICAO) values( new.P_ID, descricao_auditoria_update);
 	       return new;
+	
+	
+	elsif (select new.c_acao = 'ENTRADA') THEN
+		descricao_auditoria_update := CONCAT('Nome do funcionario: ', nome_funcionario, ' rt ',
+						       'CPF: ', cpf_funcionario, ' rt ',
+						       'Ação: Entrada (', new.c_acao, ')', ' rt ',
+						       'Nome de Usuário: ', login_usuario, ' rt ', 
+						       'Nome da Peça: ', nome_peca, ' rt ',
+						       'Preço da Peça: ', cast(preco_peca as varchar(100)), ' rt ',
+						       'Unidades da Peça: ', cast(unidade_peca as varchar(100)), ' rt ',
+						       'Valor Total Peça: ', cast(valor_total_peca as varchar(100)), ' rt ',
+						       'Data: ', cast(CURRENT_DATE as varchar(100)), ' rt ',
+						       'Hora: ', cast(CURRENT_TIME as varchar(100)));
+						       
+	       insert into Auditoria(P_ID, A_DESCRICAO) values( new.P_ID, descricao_auditoria_update);
+	       return new;
+	
+	elsif (select new.c_acao = 'SAIDA') THEN
+		descricao_auditoria_update := CONCAT('Nome do funcionario: ', nome_funcionario, ' rt ',
+						       'CPF: ', cpf_funcionario, ' rt ',
+						       'Ação: Saida (', new.c_acao, ')', ' rt ',
+						       'Nome de Usuário: ', login_usuario, ' rt ', 
+						       'Nome da Peça: ', nome_peca, ' rt ',
+						       'Preço da Peça: ', cast(preco_peca as varchar(100)), ' rt ',
+						       'Unidades da Peça: ', cast(unidade_peca as varchar(100)), ' rt ',
+						       'Valor Total Peça: ', cast(valor_total_peca as varchar(100)), ' rt ',
+						       'Data: ', cast(CURRENT_DATE as varchar(100)), ' rt ',
+						       'Hora: ', cast(CURRENT_TIME as varchar(100)));
+						       
+	       insert into Auditoria(P_ID, A_DESCRICAO) values( new.P_ID, descricao_auditoria_update);
+	       return new;
+	
 	else
 		descricao_auditoria_delete := CONCAT('Nome do funcionario: ', nome_funcionario, chr(13),
 						       'CPF: ', cpf_funcionario, ' rt ',

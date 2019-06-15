@@ -55,6 +55,13 @@
                 <a class="nav-link disabled" href="auditoria.jsp">Auditoria</a>
               </li>
            
+              <li class="nav-item active">
+                <a class="nav-link" href="Entrada.jsp">Entrada</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="Saida.jsp">Saída</a>
+              </li>
+              
            <li>   
                <div class="container">
                     <button type="submit" class="btn btn-link navbar-btn navbar-danger" data-toggle="modal" data-target="#myModal">Logout</button>

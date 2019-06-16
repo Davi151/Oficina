@@ -18,7 +18,7 @@ public class UsuarioDao {
     public boolean login (UsuarioPojo usuarioPojo){
         sql = "select f.F_ID \n" +
               "from Funcionario as f, Usuario as U " +
-              "where u.U_LOGIN = '"+usuarioPojo.getU_LOGIN()+"' and u.U_SENHA = '"+usuarioPojo.getU_SENHA()+"' and f.F_ID = u.F_ID";
+              "where u.U_LOGIN = '"+usuarioPojo.getU_LOGIN()+"' and u.U_SENHA = '"+usuarioPojo.getU_SENHA()+"' and f.F_ID = u.F_ID and U.u_estado = false";
       
         connect.connection();        
         

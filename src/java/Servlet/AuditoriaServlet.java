@@ -78,7 +78,7 @@ public class AuditoriaServlet extends HttpServlet {
             
             String[] kyeWords = new String[3];            
 
-            kyeWords[0] = "Peaça";
+            kyeWords[0] = "Peça";
             kyeWords[1] = "Auditoria";
             kyeWords[2] = "Oficina";
             

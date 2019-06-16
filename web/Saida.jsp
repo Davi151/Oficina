@@ -126,7 +126,6 @@
                 </div>  
     
                 
-                <input type="hidden" id="select-funcionarios" value="" name="select-funcionarios">
                 <label> Saida: <input type="text" id="u_saida" name="u_saida" placeholder="Saída" required oninvalid="this.setCustomValidity('Informe um número')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            

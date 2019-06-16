@@ -190,8 +190,9 @@
             <div class="modal-content">
               
               <div class="modal-header">
+                      <h4 class="modal-title" id="exampleModalLabel">Editar Peça: </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Editar Peça</h4>
+                
               </div>
                 
               <div class="modal-body">                      
@@ -209,7 +210,7 @@
                         
                       <div class="form-group">
                             <label for="unidade" class="control-label">Unidade:</label>
-                            <input name="unidade" class="form-control" id="unidade">
+                            <input readonly name="unidade" class="form-control" id="unidade">
                       </div>
                     
                     <input name="id" type="hidden" class="form-control" id="idnf" value="editar">
@@ -241,7 +242,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!--script src="./jquery/jquery-3.4.1.min.js"></script-->
     <script src="./jquery/jquery.freezeheader.js"></script>   
-    <script src="./javascript/peca.js"></script>
     <script>
         /*$(document).ready(function () {
             $("table").freezeHeader({ 'height': '300px' });
@@ -263,7 +263,7 @@
 		  modal.find('#id-peca').val(recipient)
 		  modal.find('#recipient-name').val(recipientnome)
 		  modal.find('#preco').val(recipientpreco)
-                  modal.find('#unidade').val(recipientunidade)		 
+                  modal.find('#unidade').val(recipientunidade)	
 		})
     </script>
     

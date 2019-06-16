@@ -67,12 +67,13 @@ public class PecaDao {
     
     // DELETE
     public void excluir(PecaPojo pecaPojo){                
-        sql = "UPDATE Peca SET P_ESTADO=? WHERE P_ID=?;";
+        sql = "UPDATE Peca SET P_ESTADO=?, P_UNIDADE=? WHERE P_ID=?;";
         try {
             connect.connection();
             PreparedStatement pst = connect.connect.prepareStatement(sql);            
             pst.setBoolean(1, true);
-            pst.setInt(2, pecaPojo.getP_ID());
+            pst.setInt(2, 0);
+            pst.setInt(3, pecaPojo.getP_ID());
             pst.execute();
             connect.disconect();         
         } catch (SQLException ex) {
@@ -83,15 +84,14 @@ public class PecaDao {
     
    // UPDATE
     public void editar(PecaPojo pecaPojo){        
-        sql = "UPDATE Peca SET P_NOME=?, P_PRECO=?, P_UNIDADE=?, P_VALOR_TOTAL=? WHERE P_ID=?;";
+        sql = "UPDATE Peca SET P_NOME=?, P_PRECO=?, P_UNIDADE=? WHERE P_ID=?;";
         try {
             connect.connection();                             
             PreparedStatement pst = connect.connect.prepareStatement(sql);
             pst.setString(1, pecaPojo.getP_NOME());
             pst.setDouble(2, pecaPojo.getP_PRECO());
-            pst.setInt(3, pecaPojo.getP_UNIDADE());
-            pst.setDouble(4, pecaPojo.getP_VALOR_TOTAL());
-            pst.setInt(5, pecaPojo.getP_ID());            
+            pst.setInt(3, 0);
+            pst.setInt(4, pecaPojo.getP_ID());            
             pst.execute();
             connect.disconect();                                
         } catch (SQLException ex) {
@@ -99,4 +99,34 @@ public class PecaDao {
             JOptionPane.showMessageDialog(null, "Erro ao alterar Peca!");
         }       
     }
+    
+      public void editar_entrada(PecaPojo pecaPojo){        
+        sql = "UPDATE Peca SET P_UNIDADE=? WHERE P_ID=?;";
+        try {
+            connect.connection();                             
+            PreparedStatement pst = connect.connect.prepareStatement(sql);
+            pst.setInt(1, pecaPojo.getP_UNIDADE());
+            pst.setInt(2, pecaPojo.getP_ID());            
+            pst.execute();
+            connect.disconect();                                
+        } catch (SQLException ex) {
+            Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a unidade!");
+        }       
+    }
+      public void editar_saida(PecaPojo pecaPojo){        
+        sql = "UPDATE Peca SET P_UNIDADE=? WHERE P_ID=?;";
+        try {
+            connect.connection();                             
+            PreparedStatement pst = connect.connect.prepareStatement(sql);
+            pst.setInt(1, pecaPojo.getP_UNIDADE()*-1);
+            pst.setInt(2, pecaPojo.getP_ID());            
+            pst.execute();
+            connect.disconect();                                
+        } catch (SQLException ex) {
+            Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a unidade!");
+        }       
+    }
+
 }

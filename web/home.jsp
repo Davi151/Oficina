@@ -11,11 +11,13 @@
     </head>
     <body>
         <%
-            String usuario = (String) session.getAttribute("usuario");
-            int uid = (int) session.getAttribute("u_id");
-            if(usuario == null){
+            
+            if((String) session.getAttribute("usuario") == null){
                 response.sendRedirect("index.html");
-            }
+            }else{
+                String usuario = (String) session.getAttribute("usuario");
+                int uid = (int) session.getAttribute("u_id");
+            
         %>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="home.jsp">
@@ -91,7 +93,7 @@
         </ul>           
       </div>
     </nav>      				       
-            
+   <% }%> 
     <!-- Footer -->
     <footer class="page-footer font-small blue">
 

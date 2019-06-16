@@ -101,15 +101,10 @@ public class PecaServlet extends HttpServlet {
             if(request.getParameter("id").equals("editar")){
                 if(usuario == null){
                     response.sendRedirect("index.html");
-                }else{                                         
-                    System.out.println("nome da peca"+ request.getParameter("id-peca"));                    
-                    
+                }else{                    
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("id-peca")));                    
                     pecaPojo.setP_NOME(request.getParameter("recipient-name"));
-                    pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
-                    valor_total = pecaPojo.getP_PRECO() * pecaPojo.getP_UNIDADE();
-                    pecaPojo.setP_VALOR_TOTAL(valor_total);                                       
+                    pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco"))); 
                     pecaDao.editar(pecaPojo);
                     
                     p_id = pecaPojo.getP_ID();
@@ -117,64 +112,57 @@ public class PecaServlet extends HttpServlet {
                     if(p_id >= 1){
                         controlaPojo.setU_ID(u_id);
                         controlaPojo.setP_ID(p_id);                                       
-                        controlaPojo.setC_ACAO("UPDATE");                    
+                        controlaPojo.setC_ACAO("UPDATE");
                         controlaDao.salvar(controlaPojo);
                     }                                                            
                     
                     response.sendRedirect("PecaServlet?id=listar");
                 }                
             }
-                   if(request.getParameter("id").equals("entrada")){
+                  
+            
+            if(request.getParameter("id").equals("entrada")){
                 if(usuario == null){
                     response.sendRedirect("index.html");
                 }else{                                         
-                    System.out.println("nome da peca"+ request.getParameter("id-peca"));                    
-                    
-                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("id-peca")));                    
-                    pecaPojo.setP_NOME(request.getParameter("recipient-name"));
-                    pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
-                    valor_total = pecaPojo.getP_PRECO() * pecaPojo.getP_UNIDADE();
-                    pecaPojo.setP_VALOR_TOTAL(valor_total);                                       
-                    pecaDao.editar(pecaPojo);
+                   
+                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("peca")));
+                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("u_entrada")));                                       
+                    pecaDao.editar_entrada(pecaPojo);
                     
                     p_id = pecaPojo.getP_ID();
                     
                     if(p_id >= 1){
                         controlaPojo.setU_ID(u_id);
                         controlaPojo.setP_ID(p_id);                                       
-                        controlaPojo.setC_ACAO("UPDATE");                    
+                        controlaPojo.setC_ACAO("ENTRADA");                    
                         controlaDao.salvar(controlaPojo);
                     }                                                            
                     
                     response.sendRedirect("PecaServlet?id=listar");
                 }                
             }
-                   if(request.getParameter("id").equals("saida")){
+                  
+            if(request.getParameter("id").equals("saida")){
                 if(usuario == null){
                     response.sendRedirect("index.html");
                 }else{                                         
-                    System.out.println("nome da peca"+ request.getParameter("id-peca"));                    
-         
-                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("id-peca")));                    
-                    pecaPojo.setP_NOME(request.getParameter("recipient-name"));
-                    pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
-                    valor_total = pecaPojo.getP_PRECO() * pecaPojo.getP_UNIDADE();
-                    pecaPojo.setP_VALOR_TOTAL(valor_total);                                       
-                    pecaDao.editar(pecaPojo);
+                   
+                    pecaPojo.setP_ID(Integer.parseInt(request.getParameter("peca")));
+                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("u_saida")));                                       
+                    pecaDao.editar_saida(pecaPojo);
                     
                     p_id = pecaPojo.getP_ID();
                     
                     if(p_id >= 1){
                         controlaPojo.setU_ID(u_id);
                         controlaPojo.setP_ID(p_id);                                       
-                        controlaPojo.setC_ACAO("UPDATE");                    
+                        controlaPojo.setC_ACAO("SAIDA");                    
                         controlaDao.salvar(controlaPojo);
                     }                                                            
                     
                     response.sendRedirect("PecaServlet?id=listar");
-                }                
+                }               
             }
             
             

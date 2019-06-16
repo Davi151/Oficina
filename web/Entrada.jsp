@@ -121,10 +121,8 @@
                                 </option>                                 
                             <% } %>
                     </select>                   
-                </div>  
-    
-                
-                <input type="hidden" id="select-funcionarios" value="" name="select-funcionarios">
+                </div>
+                    
                 <label> Entrada: <input type="text" id="u_entrada" name="u_entrada" placeholder="Entrada" required oninvalid="this.setCustomValidity('Informe um número')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            

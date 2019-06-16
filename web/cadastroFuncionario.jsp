@@ -100,10 +100,10 @@
             <form class="form-group" action="FuncionarioServlet?id=cadastro" method="post">			    	
                 <label> Nome: <input type="text" id="nome" name="nome" placeholder="Nome" required oninvalid="this.setCustomValidity('Informe o Nome do Funcionário!')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
-                <label>CPF: <input type="text" id="cpf" name="cpf" placeholder="CPF" required oninvalid="this.setCustomValidity('Informe o CPF do Funcionário!')" 
-                                                                                              onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                     
+                <label>CPF: <input  pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite o CPF no formato nnn.nnn.nnn-nn" oninvalid="return cpf_incorreto(this);" type="text" id="cpf" name="cpf" placeholder="CPF" required oninvalid="this.setCustomValidity('Informe o CPF do Funcionário!')" 
+                                                                                              onchange="try{setCustomValidity('')}catch(e){}"  /></label><br>                                                     
                 <input class="campo1" name="cadastro" type="submit" value="Cadastrar" />                                                            
-                <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   
+                <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="button" value="Cancelar"/>                                                                   
            </form>   
         </div>
                

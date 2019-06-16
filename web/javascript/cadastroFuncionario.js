@@ -9,7 +9,7 @@ function limparCampos(){
     document.getElementById('nome').value='';
     document.getElementById('cpf').value='';
 }
-
+/*
 function valida() {  
   if( (document.getElementById('nome').value !== "") &&
       (document.getElementById('cpf').value !== "") ) {
@@ -33,4 +33,16 @@ function valida() {
         });                    
         return false;            
   }
-}
+}*/
+
+
+ function cpf_incorreto(el) {
+       swal({
+            title: "Formato do CPF inválido!",
+            text: "Erro ao Cadastrar Funcionário!",
+            icon: "error",
+            buttons: false,
+            timer: 3000
+        });                    
+        return false;   
+   }

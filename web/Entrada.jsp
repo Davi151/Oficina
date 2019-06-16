@@ -123,7 +123,7 @@
                     </select>                   
                 </div>
                     
-                <label> Entrada: <input type="text" id="u_entrada" name="u_entrada" placeholder="Entrada" required oninvalid="this.setCustomValidity('Informe um número')" 
+                <label> Entrada: <input type="number"  min="0" step="1" id="u_entrada" name="u_entrada" placeholder="Entrada" required oninvalid="this.setCustomValidity('Informe um número')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            
                 <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   

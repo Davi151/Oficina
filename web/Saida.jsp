@@ -126,14 +126,14 @@
                 </div>  
     
                 
-                <label> Saida: <input type="text" id="u_saida" name="u_saida" placeholder="Saída" required oninvalid="this.setCustomValidity('Informe um número')" 
+                <label> Saida: <input type="number" min="0" step="1" id="u_saida" name="u_saida" placeholder="Saída" required oninvalid="this.setCustomValidity('Informe um número')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            
                 <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   
            </form>   
             </div>       
         </div>
-        
+         
         
     <!-- Footer -->
     <footer class="page-footer font-small blue">

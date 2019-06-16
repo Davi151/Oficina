@@ -24,7 +24,7 @@ public class PecaDao {
             PreparedStatement pst = connect.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, pecaPojo.getP_NOME());
             pst.setDouble(2, pecaPojo.getP_PRECO());
-            pst.setInt(3, pecaPojo.getP_UNIDADE());
+            pst.setInt(3, 0);
             pst.setBoolean(4, pecaPojo.isP_ESTADO());            
             pst.execute();
             

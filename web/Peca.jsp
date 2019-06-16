@@ -142,7 +142,7 @@
                           <div class="row" ALIGN="center">                          
                               
                             <div class="col">
-                              <button type="button" class="btn btn-xs btn-primary mesmo-tamanho" data-toggle="modal" data-target="#exampleModal" data-whatever="<% out.print(pc.getP_ID()); %>" data-whatevernome="<% out.print(pc.getP_NOME()); %>" data-whateverpreco="<% out.print(pc.getP_PRECO()); %>" data-whateverunidade="<% out.print(pc.getP_UNIDADE()); %>">
+                              <button type="button" class="btn btn-xs btn-primary mesmo-tamanho" data-toggle="modal" data-target="#exampleModal" data-whatever="<% out.print(pc.getP_ID()); %>"  data-whatevernome="<% out.print(pc.getP_NOME()); %>" data-whateverpreco="<% out.print(pc.getP_PRECO()); %>" data-whateverunidade="<% out.print(pc.getP_UNIDADE()); %>">
                                 Editar
                               </button>
                             </div>
@@ -190,13 +190,18 @@
             <div class="modal-content">
               
               <div class="modal-header">
-                      <h4 class="modal-title" id="exampleModalLabel">Editar Peça: </h4>
+                      <h4 class="modal-title" id="exampleModalLabel">Editar Peça </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 
               </div>
                 
               <div class="modal-body">                      
                   <form method="get" action="">
+                      
+                      <div class="form-group">
+                            <label for="id_peca2" class="control-label">Identificador:</label>
+                            <input readonly name="id_peca2" type="text" class="form-control" id="id_peca2">
+                      </div>
                       
                   <div class="form-group">
                             <label for="recipient-name" class="control-label">Nome:</label>
@@ -205,7 +210,7 @@
                         
                       <div class="form-group">
                             <label for="preco" class="control-label">Preco:</label>
-                            <input name="preco" class="form-control" id="preco">
+                            <input type="number" min=".00" step=".01"  name="preco" class="form-control" id="preco">
                       </div>
                         
                       <div class="form-group">
@@ -263,7 +268,8 @@
 		  modal.find('#id-peca').val(recipient)
 		  modal.find('#recipient-name').val(recipientnome)
 		  modal.find('#preco').val(recipientpreco)
-                  modal.find('#unidade').val(recipientunidade)	
+                  modal.find('#unidade').val(recipientunidade)
+                  modal.find('#id_peca2').val(recipient)
 		})
     </script>
     

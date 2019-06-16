@@ -97,9 +97,9 @@
             <form class="form-group" action="PecaServlet?id=cadastro" method="post">			    	
                 <label>Nome: <input type="text" id="nome" name="nome" placeholder="Nome" required oninvalid="this.setCustomValidity('Informe o Nome da Peça!')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
-                <label>Preço: <input type="text" id="preco" name="preco" placeholder="Preço" required oninvalid="this.setCustomValidity('Informe o Preço da Peça!')" 
+                <label>Preço: <input type="number" min=".00" step=".01" id="preco" name="preco" placeholder="Preço" required oninvalid="this.setCustomValidity('Informe o Preço da Peça!')" 
                                                                                               onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                     
-                <label>Unidade: <input type="text" id="unidade" name="unidade" placeholder="Unidade" required oninvalid="this.setCustomValidity('Informe as Unidades!')" 
+                <label>Unidade: <input readonly type="number" min="0" step="1" id="unidade" value="0" name="unidade" placeholder="Unidade" required oninvalid="this.setCustomValidity('Informe as Unidades!')" 
                                                                                            onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                                                                                                                   
                                                                                            
                 <input class="campo1" name="cadastro" type="submit" value="Cadastrar" />                                                            

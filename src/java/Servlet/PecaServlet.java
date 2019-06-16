@@ -51,7 +51,7 @@ public class PecaServlet extends HttpServlet {
                 }else{                                        
                     pecaPojo.setP_NOME(request.getParameter("nome"));
                     pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
-                    pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
+                    //pecaPojo.setP_UNIDADE(Integer.parseInt(request.getParameter("unidade")));
                     p_id = pecaDao.salvar(pecaPojo);                                                         
                     
                     if(p_id != -1){

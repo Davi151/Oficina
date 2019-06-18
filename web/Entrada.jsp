@@ -18,7 +18,7 @@
         <%
             String usuario = (String) session.getAttribute("usuario");
             if(usuario == null){
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             }
            
            PecaDao pecaDao = new PecaDao();
@@ -60,9 +60,18 @@
             </div>
            </li> 
            
-            <li class="nav-item active">
-                <a class="nav-link" href="auditoria.jsp">Auditoria</a>
-              </li>
+           <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" arial-labelledby="navbarDropdown">Auditoria</a>                            
+            <div class="dropdown-menu" arial-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="auditoria.jsp">Ações realizadas em Peças</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaEntrada.jsp">Entrada de Peça</a>
+                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaSaida.jsp">Saída de Peça</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaEntradaSaida.jsp">Entrada e Saída de Peça</a>
+            </div>
+           </li>
               
               <li class="nav-item">
                 <a class="nav-link disabled" href="Entrada.jsp">Entrada</a>
@@ -123,7 +132,7 @@
                     </select>                   
                 </div>
                     
-                <label> Entrada: <input type="number"  min="0" step="1" id="u_entrada" name="u_entrada" placeholder="Entrada" required oninvalid="this.setCustomValidity('Informe um número')" 
+                <label> Entrada: <input type="number"  min="0" step="1" id="u_entrada" name="u_entrada" placeholder="Entrada" required oninvalid="this.setCustomValidity('Informe um número inteiro')" 
                                                                                                             onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
                 <input id="cadastrar" class="campol" name="cadastro" type="submit" value="Cadastrar" />                                                            
                 <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   

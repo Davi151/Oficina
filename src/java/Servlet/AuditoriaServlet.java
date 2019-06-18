@@ -28,6 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AuditoriaServlet extends HttpServlet {
     private static Font fontHeader = new Font(Font.FontFamily.COURIER, 18, Font.BOLD);
@@ -66,12 +67,8 @@ public class AuditoriaServlet extends HttpServlet {
         document.addCreator(author);
     }
     
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {        
-        response.setContentType("application/pdf");
-        OutputStream out = response.getOutputStream();        
-        try {
+       public void gerarPdfAuditoriaPecas(OutputStream out) throws IOException, DocumentException, SQLException{        
+        try {             
             Document document = new Document(PageSize.LETTER, 80, 80, 75, 75);
             PdfWriter.getInstance(document, out);                                    
             document.open();
@@ -92,36 +89,12 @@ public class AuditoriaServlet extends HttpServlet {
             paragraph.add(new Phrase(Chunk.NEWLINE));
             paragraph.add(new Phrase(Chunk.NEWLINE));                                               
             document.add(paragraph);
-            
-            // -------------------------------------------------------------
-            
-            /*Anchor ancora = new Anchor("Capítulo 1", fontDefault);
-            ancora.setName("Capitulo 1");
-            
- 
-            // Capítulo do arquivo
-            Chapter capitulo = new Chapter(new Paragraph(ancora), 1);
-
-            Paragraph novoParagrafo = new Paragraph("Tabela de ações realizadas", fontBold);
-            novoParagrafo.add(new Phrase(Chunk.NEWLINE));
-            
-            // Seção é uma área que adicionaremos conteúdo
-            Section secao = capitulo.addSection(novoParagrafo);
-            paragraph.add(new Phrase(Chunk.NEWLINE));
-            paragraph.add(new Phrase(Chunk.NEWLINE));
-            
-            // Tabela com 3 colunas*/            
+                        
+            // Tabela com 1 coluna*/            
             PdfPTable table = new PdfPTable(1);
             table.setTotalWidth(500);
             table.setLockedWidth(true);
-            
-            //PdfPCell c1 = new PdfPCell(new Phrase("Identificador Auditoria"));
-            //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            //table.addCell(c1);
-
-            //c1 = new PdfPCell(new Phrase("Identificador Peça"));
-            //c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            //table.addCell(c1);                        
+                        
             
             PdfPCell c1 = new PdfPCell(new Phrase("Relatório Descritivo de Ações em Peça"));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -131,31 +104,224 @@ public class AuditoriaServlet extends HttpServlet {
             listAuditoriaPojo = (ArrayList<AuditoriaPojo>) auditoriaDao.listar();
             
             for(int i = 0; i < listAuditoriaPojo.size(); i++){
-                AuditoriaPojo auditoriaPojo = (AuditoriaPojo) listAuditoriaPojo.get(i);
-                //table.addCell( String.valueOf(auditoriaPojo.getA_ID()) );
-                //table.addCell( String.valueOf(auditoriaPojo.getP_ID()));
+                AuditoriaPojo auditoriaPojo = (AuditoriaPojo) listAuditoriaPojo.get(i);             
                 String descricao = auditoriaPojo.getA_DESCRICAO().replaceAll(" rt ", "\n")+"\n"
                         + "Identificador da Auditoria: "+String.valueOf(auditoriaPojo.getA_ID())
-                        +"\nIdentificador da Peça: "+String.valueOf(auditoriaPojo.getP_ID());
-                
-                //for(String letra : descricao){
-                    //System.out.println(descricao);
-                //}  
-                
-                String[] teste = descricao.split("\n");
-                //System.out.println(teste);
-                
+                        +"\nIdentificador da Peça: "+String.valueOf(auditoriaPojo.getP_ID());                               
                 table.addCell(descricao);                
             }                        
            
             document.add(table);
             document.close();
-            
         } catch (DocumentException e) {
             e.getMessage();
         }        
     }
+    
+    
+        
+    public void gerarPdfAuditoriaPecas_entrada(OutputStream out) throws IOException, DocumentException, SQLException{        
+        try {             
+            Document document = new Document(PageSize.LETTER, 80, 80, 75, 75);
+            PdfWriter.getInstance(document, out);                                    
+            document.open();
+            
+            String[] kyeWords = new String[3];            
 
+            kyeWords[0] = "Peça";
+            kyeWords[1] = "Auditoria";
+            kyeWords[2] = "Oficina";
+            
+            addMetaData("Auditoria Peça", "Pagina para geração de arquivos de auditoria de peça", kyeWords, "Davi Oliveira", document);            
+                        
+            Paragraph paragraph = new Paragraph();
+            Font font = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLUE);                                    
+            
+            paragraph.add(new Phrase("Auditoria de Peças", fontHeader));
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            paragraph.add(new Phrase(Chunk.NEWLINE));
+            paragraph.add(new Phrase(Chunk.NEWLINE));                                               
+            document.add(paragraph);
+                        
+            // Tabela com 1 coluna*/            
+            PdfPTable table = new PdfPTable(1);
+            table.setTotalWidth(500);
+            table.setLockedWidth(true);
+                        
+            
+            PdfPCell c1 = new PdfPCell(new Phrase("Relatório Descritivo de Entrada de Peça"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);                                    
+            table.setHeaderRows(1);
+
+            listAuditoriaPojo = (ArrayList<AuditoriaPojo>) auditoriaDao.listar_entrada();
+            
+            for(int i = 0; i < listAuditoriaPojo.size(); i++){
+                AuditoriaPojo auditoriaPojo = (AuditoriaPojo) listAuditoriaPojo.get(i);             
+                String descricao = auditoriaPojo.getA_DESCRICAO().replaceAll(" rt ", "\n")+"\n"
+                        + "Identificador da Auditoria: "+String.valueOf(auditoriaPojo.getA_ID())
+                        +"\nIdentificador da Peça: "+String.valueOf(auditoriaPojo.getP_ID());                               
+                table.addCell(descricao);                
+            }                        
+           
+            document.add(table);
+            document.close();
+        } catch (DocumentException e) {
+            e.getMessage();
+        }        
+    }
+   
+    
+     public void gerarPdfAuditoriaPecas_saida(OutputStream out) throws IOException, DocumentException, SQLException{        
+        try {             
+            Document document = new Document(PageSize.LETTER, 80, 80, 75, 75);
+            PdfWriter.getInstance(document, out);                                    
+            document.open();
+            
+            String[] kyeWords = new String[3];            
+
+            kyeWords[0] = "Peça";
+            kyeWords[1] = "Auditoria";
+            kyeWords[2] = "Oficina";
+            
+            addMetaData("Auditoria Peça", "Pagina para geração de arquivos de auditoria de peça", kyeWords, "Davi Oliveira", document);            
+                        
+            Paragraph paragraph = new Paragraph();
+            Font font = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLUE);                                    
+            
+            paragraph.add(new Phrase("Auditoria de Peças", fontHeader));
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            paragraph.add(new Phrase(Chunk.NEWLINE));
+            paragraph.add(new Phrase(Chunk.NEWLINE));                                               
+            document.add(paragraph);
+                        
+            // Tabela com 1 coluna*/            
+            PdfPTable table = new PdfPTable(1);
+            table.setTotalWidth(500);
+            table.setLockedWidth(true);
+                        
+            
+            PdfPCell c1 = new PdfPCell(new Phrase("Relatório Descritivo de Saída de Peça"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);                                    
+            table.setHeaderRows(1);
+
+            listAuditoriaPojo = (ArrayList<AuditoriaPojo>) auditoriaDao.listar_saida();
+            
+            for(int i = 0; i < listAuditoriaPojo.size(); i++){
+                AuditoriaPojo auditoriaPojo = (AuditoriaPojo) listAuditoriaPojo.get(i);             
+                String descricao = auditoriaPojo.getA_DESCRICAO().replaceAll(" rt ", "\n")+"\n"
+                        + "Identificador da Auditoria: "+String.valueOf(auditoriaPojo.getA_ID())
+                        +"\nIdentificador da Peça: "+String.valueOf(auditoriaPojo.getP_ID());                               
+                table.addCell(descricao);                
+            }                        
+           
+            document.add(table);
+            document.close();
+        } catch (DocumentException e) {
+            e.getMessage();
+        }        
+    }
+   
+    
+     public void gerarPdfAuditoriaPecas_entrada_saida(OutputStream out) throws IOException, DocumentException, SQLException{        
+        try {             
+            Document document = new Document(PageSize.LETTER, 80, 80, 75, 75);
+            PdfWriter.getInstance(document, out);                                    
+            document.open();
+            
+            String[] kyeWords = new String[3];            
+
+            kyeWords[0] = "Peça";
+            kyeWords[1] = "Auditoria";
+            kyeWords[2] = "Oficina";
+            
+            addMetaData("Auditoria Peça", "Pagina para geração de arquivos de auditoria de peça", kyeWords, "Davi Oliveira", document);            
+                        
+            Paragraph paragraph = new Paragraph();
+            Font font = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLUE);                                    
+            
+            paragraph.add(new Phrase("Auditoria de Peças", fontHeader));
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            paragraph.add(new Phrase(Chunk.NEWLINE));
+            paragraph.add(new Phrase(Chunk.NEWLINE));                                               
+            document.add(paragraph);
+                        
+            // Tabela com 1 coluna*/            
+            PdfPTable table = new PdfPTable(1);
+            table.setTotalWidth(500);
+            table.setLockedWidth(true);
+                        
+            
+            PdfPCell c1 = new PdfPCell(new Phrase("Relatório Descritivo de Entrada e Saída de Peça"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);                                    
+            table.setHeaderRows(1);
+
+            listAuditoriaPojo = (ArrayList<AuditoriaPojo>) auditoriaDao.listar_entrada_saida();
+            
+            for(int i = 0; i < listAuditoriaPojo.size(); i++){
+                AuditoriaPojo auditoriaPojo = (AuditoriaPojo) listAuditoriaPojo.get(i);             
+                String descricao = auditoriaPojo.getA_DESCRICAO().replaceAll(" rt ", "\n")+"\n"
+                        + "Identificador da Auditoria: "+String.valueOf(auditoriaPojo.getA_ID())
+                        +"\nIdentificador da Peça: "+String.valueOf(auditoriaPojo.getP_ID());                               
+                table.addCell(descricao);                
+            }                        
+           
+            document.add(table);
+            document.close();
+        } catch (DocumentException e) {
+            e.getMessage();
+        }        
+    }
+   
+     
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, DocumentException{                        
+        
+        HttpSession session = request.getSession();
+        String usuario = (String) session.getAttribute("usuario");
+        response.setContentType("application/pdf");
+        OutputStream out = response.getOutputStream();        
+        
+        try{
+            if(request.getParameter("id").equals("Pecas")){
+                if(usuario == null){
+                    response.sendRedirect("index.jsp");
+                }else{        
+                    gerarPdfAuditoriaPecas(out);        
+                }
+             }
+            
+             if(request.getParameter("id").equals("Entrada")){
+                if(usuario == null){
+                    response.sendRedirect("index.jsp");
+                }else{        
+                    gerarPdfAuditoriaPecas_entrada(out);        
+                }
+             }
+             
+              if(request.getParameter("id").equals("Saida")){
+                if(usuario == null){
+                    response.sendRedirect("index.jsp");
+                }else{        
+                    gerarPdfAuditoriaPecas_saida(out);        
+                }
+             }
+            
+            if(request.getParameter("id").equals("Entrada_Saida")){
+              if(usuario == null){
+                  response.sendRedirect("index.jsp");
+              }else{        
+                  gerarPdfAuditoriaPecas_entrada_saida(out);        
+              }
+           }
+            
+            
+        } catch (DocumentException e) {
+            e.getMessage();
+        }        
+    }   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -171,6 +337,8 @@ public class AuditoriaServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(AuditoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
             Logger.getLogger(AuditoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -190,17 +358,15 @@ public class AuditoriaServlet extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AuditoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(AuditoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

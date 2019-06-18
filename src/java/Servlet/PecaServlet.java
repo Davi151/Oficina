@@ -47,7 +47,7 @@ public class PecaServlet extends HttpServlet {
         try {            
             if(request.getParameter("id").equals("cadastro")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{                                        
                     pecaPojo.setP_NOME(request.getParameter("nome"));
                     pecaPojo.setP_PRECO(Double.parseDouble(request.getParameter("preco")));
@@ -69,7 +69,7 @@ public class PecaServlet extends HttpServlet {
             
             if(request.getParameter("id").equals("listar")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{
                     listPecaPojo = (ArrayList<PecaPojo>) pecaDao.listar();            
                     request.setAttribute("listPecaPojo", listPecaPojo);                                                          
@@ -80,7 +80,7 @@ public class PecaServlet extends HttpServlet {
             
             if(request.getParameter("id").equals("excluir")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("identificador")));                    
                     pecaDao.excluir(pecaPojo);                                     
@@ -100,7 +100,7 @@ public class PecaServlet extends HttpServlet {
             
             if(request.getParameter("id").equals("editar")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{                    
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("id-peca")));                    
                     pecaPojo.setP_NOME(request.getParameter("recipient-name"));
@@ -123,7 +123,7 @@ public class PecaServlet extends HttpServlet {
             
             if(request.getParameter("id").equals("entrada")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{                                         
                    
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("peca")));
@@ -145,7 +145,7 @@ public class PecaServlet extends HttpServlet {
                   
             if(request.getParameter("id").equals("saida")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{                                         
                    
                     pecaPojo.setP_ID(Integer.parseInt(request.getParameter("peca")));

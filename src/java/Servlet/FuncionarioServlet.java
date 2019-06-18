@@ -39,7 +39,7 @@ public class FuncionarioServlet extends HttpServlet {
                                 
         if(request.getParameter("id").equals("cadastro")){            
             if(usuario == null){
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             }else{
                 funcionarioPojo.setF_CPF(request.getParameter("cpf"));
                 funcionarioPojo.setF_NOME(request.getParameter("nome"));
@@ -51,7 +51,7 @@ public class FuncionarioServlet extends HttpServlet {
         
         if(request.getParameter("id").equals("listar")){
             if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
             }else{
                 try {
                     listFuncionarioPojo = (ArrayList<FuncionarioPojo>) funcionarioDao.listar();            
@@ -66,7 +66,7 @@ public class FuncionarioServlet extends HttpServlet {
         
          if(request.getParameter("id").equals("excluir")){
                 if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 }else{
                     funcionarioPojo.setF_ID(Integer.parseInt(request.getParameter("identificador")));                    
                     funcionarioDao.excluir(funcionarioPojo);                                     

@@ -12,10 +12,9 @@ public class AuditoriaDao {
     ConnectionFactory connect = new ConnectionFactory();
     String sql = "";
     
-    
-     // SELECT
+       // SELECT
     public ArrayList<AuditoriaPojo> listar() throws SQLException{
-        sql = "SELECT * FROM Auditoria ORDER BY A_ID;";            
+        sql = "select * from view_auditoria_pecas ORDER BY A_ID;";            
         ArrayList<AuditoriaPojo> listAuditoriaPojo = new ArrayList<>();        
         connect.connection();                
         try {
@@ -35,5 +34,72 @@ public class AuditoriaDao {
         }                    
         return listAuditoriaPojo;       
     }
+    
+      public ArrayList<AuditoriaPojo> listar_entrada() throws SQLException{
+        sql = "select * from view_auditoria_pecas_entrada ORDER BY A_ID;";            
+        ArrayList<AuditoriaPojo> listAuditoriaPojo = new ArrayList<>();        
+        connect.connection();                
+        try {
+            connect.executaSql(sql);
+                   
+               while (connect.rst.next()){                
+                    AuditoriaPojo auditoriaPojo = new AuditoriaPojo();
+                    auditoriaPojo.setP_ID(connect.rst.getInt("P_ID"));             
+                    auditoriaPojo.setA_ID(connect.rst.getInt("A_ID"));             
+                    auditoriaPojo.setA_DESCRICAO(connect.rst.getString("A_DESCRICAO"));             
+                    listAuditoriaPojo.add(auditoriaPojo);                                                                                        
+                }                               
+            connect.disconect();                        
+        } catch (SQLException ex) {
+            Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pecas!");
+        }                    
+        return listAuditoriaPojo;       
+    }
+      
+    public ArrayList<AuditoriaPojo> listar_saida() throws SQLException{
+        sql = "select * from view_auditoria_pecas_saida ORDER BY A_ID;";            
+        ArrayList<AuditoriaPojo> listAuditoriaPojo = new ArrayList<>();        
+        connect.connection();                
+        try {
+            connect.executaSql(sql);
+                   
+               while (connect.rst.next()){                
+                    AuditoriaPojo auditoriaPojo = new AuditoriaPojo();
+                    auditoriaPojo.setP_ID(connect.rst.getInt("P_ID"));             
+                    auditoriaPojo.setA_ID(connect.rst.getInt("A_ID"));             
+                    auditoriaPojo.setA_DESCRICAO(connect.rst.getString("A_DESCRICAO"));             
+                    listAuditoriaPojo.add(auditoriaPojo);                                                                                        
+                }                               
+            connect.disconect();                        
+        } catch (SQLException ex) {
+            Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pecas!");
+        }                    
+        return listAuditoriaPojo;       
+    }
+    
+    public ArrayList<AuditoriaPojo> listar_entrada_saida() throws SQLException{
+        sql = "select * from view_auditoria_pecas_entrada_saida ORDER BY A_ID;";            
+        ArrayList<AuditoriaPojo> listAuditoriaPojo = new ArrayList<>();        
+        connect.connection();                
+        try {
+            connect.executaSql(sql);
+                   
+               while (connect.rst.next()){                
+                    AuditoriaPojo auditoriaPojo = new AuditoriaPojo();
+                    auditoriaPojo.setP_ID(connect.rst.getInt("P_ID"));             
+                    auditoriaPojo.setA_ID(connect.rst.getInt("A_ID"));             
+                    auditoriaPojo.setA_DESCRICAO(connect.rst.getString("A_DESCRICAO"));             
+                    listAuditoriaPojo.add(auditoriaPojo);                                                                                        
+                }                               
+            connect.disconect();                        
+        } catch (SQLException ex) {
+            Logger.getLogger(PecaDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar Pecas!");
+        }                    
+        return listAuditoriaPojo;       
+    }
+  
     
 }

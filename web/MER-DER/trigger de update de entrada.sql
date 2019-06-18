@@ -36,5 +36,5 @@ $$ language plpgsql;
 create trigger trigger_update_valor_total
 after update on Peca
 for each row
-WHEN (pg_trigger_depth() = 0) 
+WHEN (pg_trigger_depth() = 0)
 execute procedure update_valor_total();

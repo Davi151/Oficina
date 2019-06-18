@@ -1,3 +1,5 @@
+<%@page import="Pojo.UsuarioPojo"%>
+<%@page import="Dao.UsuarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,10 +15,11 @@
         <%
             
             if((String) session.getAttribute("usuario") == null){
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");                
             }else{
                 String usuario = (String) session.getAttribute("usuario");
                 int uid = (int) session.getAttribute("u_id");
+                 
             
         %>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -53,8 +56,18 @@
                 <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
            </li>
-          <li class="nav-item active">
-                <a class="nav-link" href="auditoria.jsp">Auditoria</a>
+           
+         <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" arial-labelledby="navbarDropdown">Auditoria</a>                            
+            <div class="dropdown-menu" arial-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="auditoria.jsp">Ações realizadas em Peças</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaEntrada.jsp">Entrada de Peça</a>
+                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaSaida.jsp">Saída de Peça</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="auditoriaEntradaSaida.jsp">Entrada e Saída de Peça</a>
+            </div>
            </li>
           
            <li class="nav-item active">

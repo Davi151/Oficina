@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
             
             response.sendRedirect("home.jsp");
         }else{
-             response.sendRedirect("index.html");
+             response.sendRedirect("index.jsp");
         }
     }
 

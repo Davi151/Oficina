@@ -35,7 +35,7 @@ public class UsuarioServlet extends HttpServlet {
             try {
                 if (request.getParameter("id").equals("cadastro")) {
                     if(usuario == null){
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("index.jsp");
                 } else{
                     usuarioPojo.setU_LOGIN(request.getParameter("login"));
                     usuarioPojo.setU_SENHA(request.getParameter("senha"));

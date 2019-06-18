@@ -1,27 +1,26 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cadastro Peça</title>
+        <title>Auditoria Saída</title>
         <meta charset="UTF-8">        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link href="css/cadastroPeca.css" rel="stylesheet" type="text/css">
+        <link href="css/auditoria.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
     <body>
-         <%
+        <%
             String usuario = (String) session.getAttribute("usuario");
-            int uid = (int) session.getAttribute("u_id");
             if(usuario == null){
                 response.sendRedirect("index.jsp");
             }
         %>
-       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="home.jsp">
             <img src="./img/logo.png" width="30" height="30" alt="logo oficina">
         </a>
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,18 +40,18 @@
             </div>
           </li>
           
-          <li class="nav-item active dropdown">
+           <li class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" arial-labelledby="navbarDropdown">Cadastrar</a>                            
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="cadastroPeca.jsp">Peça</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>
+                <a class="dropdown-item" href="cadastroFuncionario.jsp">Funcionário</a>  
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="cadastroUsuario.jsp">Usuário</a>
             </div>
-           </li>    
+           </li> 
            
-           <li class="nav-item active dropdown">
+          <li class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" arial-labelledby="navbarDropdown">Auditoria</a>                            
             <div class="dropdown-menu" arial-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="auditoria.jsp">Ações realizadas em Peças</a>
@@ -65,12 +64,13 @@
             </div>
            </li>
            
-           <li class="nav-item active">
+              <li class="nav-item active">
                 <a class="nav-link" href="Entrada.jsp">Entrada</a>
               </li>
-           <li class="nav-item active">
+              <li class="nav-item active">
                 <a class="nav-link" href="Saida.jsp">Saída</a>
               </li>
+              
            <li>   
                <div class="container">
                     <button type="submit" class="btn btn-link navbar-btn navbar-danger" data-toggle="modal" data-target="#myModal">Logout</button>
@@ -95,34 +95,28 @@
                     </div> 
                 </div> 
             </li>
+                        
             
             <li>
                 <a class="nav-link disabled" href="#">Usuário: <% out.print(usuario);%> </a>
             </li>
-        </ul>            
-      </div>            
-    </nav>          
-        <h1 ALIGN="center">Cadastro de Peça</h1>
-        <div class="table-sm box" ALIGN="center">
-            <form class="form-group" action="PecaServlet?id=cadastro" method="post">			    	
-                <label>Nome: <input type="text" id="nome" name="nome" placeholder="Nome" required oninvalid="this.setCustomValidity('Informe o Nome da Peça!')" 
-                                                                                                            onchange="try{setCustomValidity('')}catch(e){}"/></label><br>
-                <label>Preço: <input type="number" min=".00" step=".01" id="preco" name="preco" placeholder="Preço" required oninvalid="this.setCustomValidity('Informe o Preço da Peça!')" 
-                                                                                              onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                     
-                <label>Unidade: <input readonly type="number" min="0" step="1" id="unidade" value="0" name="unidade" placeholder="Unidade" required oninvalid="this.setCustomValidity('Informe as Unidades!')" 
-                                                                                           onchange="try{setCustomValidity('')}catch(e){}"/></label><br>                                                                                                                                                   
-                                                                                           
-                <input class="campo1" name="cadastro" type="submit" value="Cadastrar" />                                                            
-                <input id="cancel" class="campo2" name="cancel" onclick="limparCampos()" type="submit" value="Cancelar"/>                                                                   
-           </form>   
-        </div>
-       
-        
+        </ul>           
+      </div>
+    </nav>  
+
+     
+    <div align="center">
+            <iframe align="center" src="AuditoriaServlet?id=Saida" style="width: 800px; height: 500px;" >
+                
+            </iframe>
+    </div>  
+            
+            
     <!-- Footer -->
     <footer class="page-footer font-small blue">
 
       <!-- Copyright -->
-        <div class="footer-copyright footer py-3">
+        <div class="footer-copyright py-3">
         © 2019 Copyright:
         <a href="https://github.com/Davi151/Oficina">https://github.com/Davi151/Oficina</a>
       </div>
@@ -130,11 +124,9 @@
 
     </footer>
     <!-- Footer -->
-    
+     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="./javascript/cadastroPeca.js"></script>    
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    </body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
+    </body>    
 </html>

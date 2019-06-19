@@ -14,15 +14,7 @@ function valida() {
   if( (document.getElementById('nome').value !== "") &&
       (document.getElementById('preco').value !== "") &&
       (document.getElementById('unidade').value !== "")) {
-    {
-        swal({ 
-          title: "Peça cadastrada com êxito!!",
-          text: "Cadastro efetuado com sucesso!",
-          icon: "success",          
-          closeModal: true,          
-          buttons: false,
-          timer: 30000
-      });
+    {       
       return true;
   
   } 

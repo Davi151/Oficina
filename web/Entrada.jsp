@@ -108,7 +108,7 @@
             <li>
                 <a class="nav-link disabled" href="#">Usuário: <% out.print(usuario);%> </a>
             </li>
-        </ul>   
+        </ul>
             
       </div>            
     </nav>        
@@ -117,10 +117,10 @@
         <div class="scrollableBody">  
         
             <div class="table-sm box" ALIGN="center">                                   
-                <form class="form-group" action="PecaServlet?id=entrada" method="post">	                 
+                <form class="form-group" action="PecaServlet?id=entrada" method="post" onsubmit="return valida()">	                 
                 <div class="dropdown">                   
                     <select id="peca" name="peca" class="browser-default custom-select">
-                        <option selected disabled>Peca</option>
+                        <option selected disabled>Peça</option>
                         <%for (int i = 0; i < listPecaPojo.size(); i++) { %>
                             <% PecaPojo pc = listPecaPojo.get(i); %>                            
                                 <option value="<% out.print(pc.getP_ID()); %>">
